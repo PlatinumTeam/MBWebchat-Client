@@ -1,523 +1,523 @@
 body {
-    margin: 0px;
+	margin: 0px;
 }
 html, body {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 #main {
-    height:    -moz-calc(100% - 10px);
-    height: -webkit-calc(100% - 10px);
-    height:         calc(100% - 10px);
-    width:     -moz-calc(100% - 10px);
-    width:  -webkit-calc(100% - 10px);
-    width:          calc(100% - 10px);
-    position: relative;
-    padding: 5px;
+	height:    -moz-calc(100% - 10px);
+	height: -webkit-calc(100% - 10px);
+	height:         calc(100% - 10px);
+	width:     -moz-calc(100% - 10px);
+	width:  -webkit-calc(100% - 10px);
+	width:          calc(100% - 10px);
+	position: relative;
+	padding: 5px;
 }
 @media (min-width: 480px) {
-    #titleframe {
-        width: 100%;
-        height: 30px;
-    }
-    #titletext {
-        font-family: "Helvetica Neue", Helvetica;
-        font-size: 20px;
-        font-weight: 500;
-        margin-top: 7px;
-        margin-left: 10px;
-        float: left;
-    }
-    #titlestatus {
-        font-family: "Helvetica Neue", Helvetica;
-        font-size: 20px;
-        font-weight: 500;
-        margin-top: 7px;
-        margin-right: 10px;
-        float: right;
-    }
-    #chatframe {
-        float: left;
-        width:    -moz-calc(100% - 200px);
-        width: -webkit-calc(100% - 200px);
-        width:         calc(100% - 200px);
-    }
-    #userframe {
-        float: right;
-        width: 200px;
-    }
-    #chatframe, #userframe {
-        top: 40px;
-        height:    -moz-calc(100% - 90px);
-        height: -webkit-calc(100% - 90px);
-        height:         calc(100% - 90px);
-    }
-    #chatoutline, #useroutline {
-        height:    -moz-calc(100% - 10px);
-        height: -webkit-calc(100% - 10px);
-        height:         calc(100% - 10px);
-    }
-    #chatbox, #userbox {
-        height:    -moz-calc(100% - 12px);
-        height: -webkit-calc(100% - 12px);
-        height:         calc(100% - 12px);
-    }
-    #chatoutline, #useroutline, #messageoutline {
-        padding: 5px;
-    }
-    #chatbox, #userbox, #messagebox {
-        padding: 5px;
-        border-radius: 4px;
-    }
-    #chatbox, #userbox {
-        overflow: auto;
-        font-family: "Helvetica Neue", Helvetica;
-        font-size: 14px;
-    }
-    #chatbox > div, #userbox > div {
-        margin-bottom: 2px;
-    }
-    #messageframe {
-        clear: both;
-        width: 100%;
-        height: 48px;
-    }
-    #messageoutline {
-        height: 40px;
-    }
-    #messagebox {
-        height: 30px;
-    }
-    #messagebox input[type="text"] {
-        width: 100%;
-        height: 30px;
-        font-size: 16px;
-    }
-    #messagebox.showa input[type="text"] {
-        width: calc(100% - 55px);
-        height: 30px;
-        font-size: 16px;
-    }
-    #messageframe.guest {
-        display: none;
-    }
-    #chatframe.guest, #userframe.guest {
-        top: 40px;
-        height:    -moz-calc(100% - 40px);
-        height: -webkit-calc(100% - 40px);
-        height:         calc(100% - 40px);
-    }
-    #loginmodal {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-    }
-    /* https://css-tricks.com/centering-in-the-unknown/ */
-    #loginframe {
-        text-align: center;
-        white-space: nowrap;
-        font-size: 0px;
-    }
-    #loginframe:before {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        font-size: 0px;
-    }
-    #loginoutline {
-        display: inline-block;
-        vertical-align: middle;
-        width: 90%;
-        height: 90%;
-        max-width: 800px;
-        max-height: 500px;
-        font-size: 0px;
-    }
-    #loginbox {
-        width: 100%;
-        height: 100%;
-        border-radius: 2px;
-    }
-    #loginarea {
-        padding: 5px;
-        height:    -moz-calc(100% - 10px);
-        height: -webkit-calc(100% - 10px);
-        height:         calc(100% - 10px);
-        font-size: initial;
-        position: relative;
-    }
-    #loginarea h1 {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #loginarea p {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #loginform {
-        margin-top: 20px;
-    }
-    #loginform label {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #loginmessage {
-        white-space: normal;
-    }
-    #loginstatusbox {
-        position: absolute;
-        top: 100%;
-        margin-top: -40px;
-        text-align: center;
-        width: 100%;
-    }
-    #tosmodal {
-        display: none;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-    }
-    /* https://css-tricks.com/centering-in-the-unknown/ */
-    #tosframe {
-        text-align: center;
-        white-space: nowrap;
-        font-size: 0px;
-    }
-    #tosframe:before {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        font-size: 0px;
-    }
-    #tosoutline {
-        display: inline-block;
-        vertical-align: middle;
-        width: 90%;
-        height: 90%;
-        max-width: 600px;
-        max-height: 800px;
-        font-size: 0px;
-    }
-    #tosbox {
-        width: 100%;
-        height: 100%;
-        border-radius: 2px;
-    }
-    #tosarea {
-        padding: 5px;
-        height:    -moz-calc(100% - 10px);
-        height: -webkit-calc(100% - 10px);
-        height:         calc(100% - 10px);
-        font-size: initial;
-        position: relative;
-    }
-    #tosarea h1 {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #tostext {
-        padding: 5px;
-        white-space: normal;
-        text-align: justify;
-        height:    -moz-calc(100% - 140px);
-        height: -webkit-calc(100% - 140px);
-        height:         calc(100% - 140px);
-        overflow: auto;
-        font-family: "Times New Roman", Times;
-        margin-bottom: 15px;
-    }
-    #tostext p {
-        text-indent: 2em;
-    }
-    #tostext h1, #tostext h2, #tostext h3, #tostext h4, #tostext .centered {
-        text-align: center;
-        text-indent: 0px;
-    }
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-    }
-    ::-webkit-scrollbar-thumb {
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-    }
+	#titleframe {
+		width: 100%;
+		height: 30px;
+	}
+	#titletext {
+		font-family: "Helvetica Neue", Helvetica;
+		font-size: 20px;
+		font-weight: 500;
+		margin-top: 7px;
+		margin-left: 10px;
+		float: left;
+	}
+	#titlestatus {
+		font-family: "Helvetica Neue", Helvetica;
+		font-size: 20px;
+		font-weight: 500;
+		margin-top: 7px;
+		margin-right: 10px;
+		float: right;
+	}
+	#chatframe {
+		float: left;
+		width:    -moz-calc(100% - 200px);
+		width: -webkit-calc(100% - 200px);
+		width:         calc(100% - 200px);
+	}
+	#userframe {
+		float: right;
+		width: 200px;
+	}
+	#chatframe, #userframe {
+		top: 40px;
+		height:    -moz-calc(100% - 90px);
+		height: -webkit-calc(100% - 90px);
+		height:         calc(100% - 90px);
+	}
+	#chatoutline, #useroutline {
+		height:    -moz-calc(100% - 10px);
+		height: -webkit-calc(100% - 10px);
+		height:         calc(100% - 10px);
+	}
+	#chatbox, #userbox {
+		height:    -moz-calc(100% - 12px);
+		height: -webkit-calc(100% - 12px);
+		height:         calc(100% - 12px);
+	}
+	#chatoutline, #useroutline, #messageoutline {
+		padding: 5px;
+	}
+	#chatbox, #userbox, #messagebox {
+		padding: 5px;
+		border-radius: 4px;
+	}
+	#chatbox, #userbox {
+		overflow: auto;
+		font-family: "Helvetica Neue", Helvetica;
+		font-size: 14px;
+	}
+	#chatbox > div, #userbox > div {
+		margin-bottom: 2px;
+	}
+	#messageframe {
+		clear: both;
+		width: 100%;
+		height: 48px;
+	}
+	#messageoutline {
+		height: 40px;
+	}
+	#messagebox {
+		height: 30px;
+	}
+	#messagebox input[type="text"] {
+		width: 100%;
+		height: 30px;
+		font-size: 16px;
+	}
+	#messagebox.showa input[type="text"] {
+		width: calc(100% - 55px);
+		height: 30px;
+		font-size: 16px;
+	}
+	#messageframe.guest {
+		display: none;
+	}
+	#chatframe.guest, #userframe.guest {
+		top: 40px;
+		height:    -moz-calc(100% - 40px);
+		height: -webkit-calc(100% - 40px);
+		height:         calc(100% - 40px);
+	}
+	#loginmodal {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0px;
+		left: 0px;
+	}
+	/* https://css-tricks.com/centering-in-the-unknown/ */
+	#loginframe {
+		text-align: center;
+		white-space: nowrap;
+		font-size: 0px;
+	}
+	#loginframe:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		font-size: 0px;
+	}
+	#loginoutline {
+		display: inline-block;
+		vertical-align: middle;
+		width: 90%;
+		height: 90%;
+		max-width: 800px;
+		max-height: 500px;
+		font-size: 0px;
+	}
+	#loginbox {
+		width: 100%;
+		height: 100%;
+		border-radius: 2px;
+	}
+	#loginarea {
+		padding: 5px;
+		height:    -moz-calc(100% - 10px);
+		height: -webkit-calc(100% - 10px);
+		height:         calc(100% - 10px);
+		font-size: initial;
+		position: relative;
+	}
+	#loginarea h1 {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#loginarea p {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#loginform {
+		margin-top: 20px;
+	}
+	#loginform label {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#loginmessage {
+		white-space: normal;
+	}
+	#loginstatusbox {
+		position: absolute;
+		top: 100%;
+		margin-top: -40px;
+		text-align: center;
+		width: 100%;
+	}
+	#tosmodal {
+		display: none;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0px;
+		left: 0px;
+	}
+	/* https://css-tricks.com/centering-in-the-unknown/ */
+	#tosframe {
+		text-align: center;
+		white-space: nowrap;
+		font-size: 0px;
+	}
+	#tosframe:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		font-size: 0px;
+	}
+	#tosoutline {
+		display: inline-block;
+		vertical-align: middle;
+		width: 90%;
+		height: 90%;
+		max-width: 600px;
+		max-height: 800px;
+		font-size: 0px;
+	}
+	#tosbox {
+		width: 100%;
+		height: 100%;
+		border-radius: 2px;
+	}
+	#tosarea {
+		padding: 5px;
+		height:    -moz-calc(100% - 10px);
+		height: -webkit-calc(100% - 10px);
+		height:         calc(100% - 10px);
+		font-size: initial;
+		position: relative;
+	}
+	#tosarea h1 {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#tostext {
+		padding: 5px;
+		white-space: normal;
+		text-align: justify;
+		height:    -moz-calc(100% - 140px);
+		height: -webkit-calc(100% - 140px);
+		height:         calc(100% - 140px);
+		overflow: auto;
+		font-family: "Times New Roman", Times;
+		margin-bottom: 15px;
+	}
+	#tostext p {
+		text-indent: 2em;
+	}
+	#tostext h1, #tostext h2, #tostext h3, #tostext h4, #tostext .centered {
+		text-align: center;
+		text-indent: 0px;
+	}
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+	::-webkit-scrollbar-track {
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+	}
+	::-webkit-scrollbar-thumb {
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+	}
 }
 @media (max-width: 479px) {
-    #titleframe {
-        width: 100%;
-        height: 30px;
-    }
-    #titletext {
-        font-family: "Helvetica Neue", Helvetica;
-        font-size: 16px;
-        font-weight: 500;
-        margin-top: 7px;
-        margin-left: 10px;
-        float: left;
-    }
-    #titlestatus {
-        font-family: "Helvetica Neue", Helvetica;
-        font-size: 16px;
-        font-weight: 500;
-        margin-top: 7px;
-        margin-right: 10px;
-        float: right;
-    }
-    #chatframe {
-        height:    -moz-calc(60% - 45px);
-        height: -webkit-calc(60% - 45px);
-        height:         calc(60% - 45px);
-    }
-    #userframe {
-        height:    -moz-calc(40% - 50px);
-        height: -webkit-calc(40% - 50px);
-        height:         calc(40% - 50px);
-    }
-    #chatframe, #userframe {
-        width: 100%;
-    }
-    #chatbox {
-        height:    -moz-calc(100% - 11px);
-        height: -webkit-calc(100% - 11px);
-        height:         calc(100% - 11px);
-    }
-    #userbox {
-        margin-top: 5px;
-        height:    -moz-calc(100% - 21px);
-        height: -webkit-calc(100% - 21px);
-        height:         calc(100% - 21px);
-    }
-    #chatoutline, #useroutline, #messageoutline {
-        padding: 5px;
-        height: 100%;
-    }
-    #chatbox, #userbox, #messagebox {
-        padding: 5px;
-        border-radius: 2px;
-    }
-    #chatbox, #userbox {
-        overflow: auto;
-        font-family: "Helvetica Neue", Helvetica;
-        font-size: 14px;
-    }
-    #chatbox > div, #userbox > div {
-        margin-bottom: 2px;
-    }
-    #messageframe {
-        clear: both;
-        width: 100%;
-        height: 50px;
-    }
-    #messageoutline {
-        height: 40px;
-    }
-    #messagebox {
-        height: 30px;
-    }
-    #messagebox input[type="text"] {
-        width: 100%;
-        height: 30px;
-        font-size: 16px;
-    }
-    #messagebox.showa input[type="text"] {
-        width: calc(100% - 55px);
-        height: 30px;
-        font-size: 16px;
-    }
-    #chatframe.keyboard {
-        height:    -moz-calc(100% - 95px);
-        height: -webkit-calc(100% - 95px);
-        height:         calc(100% - 95px);
-    }
-    #userframe.keyboard {
-        display: none;
-    }
-    #loginmodal {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-    }
-    /* https://css-tricks.com/centering-in-the-unknown/ */
-    #loginframe {
-        text-align: center;
-        white-space: nowrap;
-        font-size: 0px;
-    }
-    #loginframe:before {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        font-size: 0px;
-    }
-    #loginoutline {
-        display: inline-block;
-        vertical-align: middle;
-        width: 90%;
-        height: 90%;
-        max-width: 800px;
-        max-height: 500px;
-        font-size: 0px;
-    }
-    #loginbox {
-        width: 100%;
-        height: 100%;
-        border-radius: 2px;
-    }
-    #loginarea {
-        padding: 5px;
-        height:    -moz-calc(100% - 10px);
-        height: -webkit-calc(100% - 10px);
-        height:         calc(100% - 10px);
-        font-size: initial;
-        position: relative;
-    }
-    #loginarea h1 {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #loginarea p {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #loginform {
-        margin-top: 20px;
-    }
-    #loginform label {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    input.form[type="text"], input.form[type="password"] {
-        margin-bottom: 10px;
-        margin-left: 20px;
-        border-radius: 4px;
-        outline: none;
-        padding: 3px;
-        font-size: 13px;
-    }
-    #loginmessage {
-        white-space: normal;
-    }
-    #loginstatusbox {
-        position: absolute;
-        top: 100%;
-        margin-top: -40px;
-        text-align: center;
-        width: 100%;
-    }
-    #tosmodal {
-        display: none;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-    }
-    /* https://css-tricks.com/centering-in-the-unknown/ */
-    #tosframe {
-        text-align: center;
-        white-space: nowrap;
-        font-size: 0px;
-    }
-    #tosframe:before {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        font-size: 0px;
-    }
-    #tosoutline {
-        display: inline-block;
-        vertical-align: middle;
-        width: 90%;
-        height: 90%;
-        max-width: 600px;
-        max-height: 800px;
-        font-size: 0px;
-    }
-    #tosbox {
-        width: 100%;
-        height: 100%;
-        border-radius: 2px;
-    }
-    #tosarea {
-        padding: 5px;
-        height:    -moz-calc(100% - 10px);
-        height: -webkit-calc(100% - 10px);
-        height:         calc(100% - 10px);
-        font-size: initial;
-        position: relative;
-    }
-    #tosarea h1 {
-        font-family: "Helvetica Neue", Helvetica;
-    }
-    #tostext {
-        padding: 5px;
-        white-space: normal;
-        text-align: justify;
-        height:    -moz-calc(100% - 140px);
-        height: -webkit-calc(100% - 140px);
-        height:         calc(100% - 140px);
-        overflow: auto;
-        font-family: "Times New Roman", Times;
-        margin-bottom: 15px;
-    }
-    #tostext p {
-        text-indent: 2em;
-    }
-    #tostext h1, #tostext h2, #tostext h3, #tostext h4, #tostext .centered {
-        text-align: center;
-        text-indent: 0px;
-    }
+	#titleframe {
+		width: 100%;
+		height: 30px;
+	}
+	#titletext {
+		font-family: "Helvetica Neue", Helvetica;
+		font-size: 16px;
+		font-weight: 500;
+		margin-top: 7px;
+		margin-left: 10px;
+		float: left;
+	}
+	#titlestatus {
+		font-family: "Helvetica Neue", Helvetica;
+		font-size: 16px;
+		font-weight: 500;
+		margin-top: 7px;
+		margin-right: 10px;
+		float: right;
+	}
+	#chatframe {
+		height:    -moz-calc(60% - 45px);
+		height: -webkit-calc(60% - 45px);
+		height:         calc(60% - 45px);
+	}
+	#userframe {
+		height:    -moz-calc(40% - 50px);
+		height: -webkit-calc(40% - 50px);
+		height:         calc(40% - 50px);
+	}
+	#chatframe, #userframe {
+		width: 100%;
+	}
+	#chatbox {
+		height:    -moz-calc(100% - 11px);
+		height: -webkit-calc(100% - 11px);
+		height:         calc(100% - 11px);
+	}
+	#userbox {
+		margin-top: 5px;
+		height:    -moz-calc(100% - 21px);
+		height: -webkit-calc(100% - 21px);
+		height:         calc(100% - 21px);
+	}
+	#chatoutline, #useroutline, #messageoutline {
+		padding: 5px;
+		height: 100%;
+	}
+	#chatbox, #userbox, #messagebox {
+		padding: 5px;
+		border-radius: 2px;
+	}
+	#chatbox, #userbox {
+		overflow: auto;
+		font-family: "Helvetica Neue", Helvetica;
+		font-size: 14px;
+	}
+	#chatbox > div, #userbox > div {
+		margin-bottom: 2px;
+	}
+	#messageframe {
+		clear: both;
+		width: 100%;
+		height: 50px;
+	}
+	#messageoutline {
+		height: 40px;
+	}
+	#messagebox {
+		height: 30px;
+	}
+	#messagebox input[type="text"] {
+		width: 100%;
+		height: 30px;
+		font-size: 16px;
+	}
+	#messagebox.showa input[type="text"] {
+		width: calc(100% - 55px);
+		height: 30px;
+		font-size: 16px;
+	}
+	#chatframe.keyboard {
+		height:    -moz-calc(100% - 95px);
+		height: -webkit-calc(100% - 95px);
+		height:         calc(100% - 95px);
+	}
+	#userframe.keyboard {
+		display: none;
+	}
+	#loginmodal {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0px;
+		left: 0px;
+	}
+	/* https://css-tricks.com/centering-in-the-unknown/ */
+	#loginframe {
+		text-align: center;
+		white-space: nowrap;
+		font-size: 0px;
+	}
+	#loginframe:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		font-size: 0px;
+	}
+	#loginoutline {
+		display: inline-block;
+		vertical-align: middle;
+		width: 90%;
+		height: 90%;
+		max-width: 800px;
+		max-height: 500px;
+		font-size: 0px;
+	}
+	#loginbox {
+		width: 100%;
+		height: 100%;
+		border-radius: 2px;
+	}
+	#loginarea {
+		padding: 5px;
+		height:    -moz-calc(100% - 10px);
+		height: -webkit-calc(100% - 10px);
+		height:         calc(100% - 10px);
+		font-size: initial;
+		position: relative;
+	}
+	#loginarea h1 {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#loginarea p {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#loginform {
+		margin-top: 20px;
+	}
+	#loginform label {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	input.form[type="text"], input.form[type="password"] {
+		margin-bottom: 10px;
+		margin-left: 20px;
+		border-radius: 4px;
+		outline: none;
+		padding: 3px;
+		font-size: 13px;
+	}
+	#loginmessage {
+		white-space: normal;
+	}
+	#loginstatusbox {
+		position: absolute;
+		top: 100%;
+		margin-top: -40px;
+		text-align: center;
+		width: 100%;
+	}
+	#tosmodal {
+		display: none;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0px;
+		left: 0px;
+	}
+	/* https://css-tricks.com/centering-in-the-unknown/ */
+	#tosframe {
+		text-align: center;
+		white-space: nowrap;
+		font-size: 0px;
+	}
+	#tosframe:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		font-size: 0px;
+	}
+	#tosoutline {
+		display: inline-block;
+		vertical-align: middle;
+		width: 90%;
+		height: 90%;
+		max-width: 600px;
+		max-height: 800px;
+		font-size: 0px;
+	}
+	#tosbox {
+		width: 100%;
+		height: 100%;
+		border-radius: 2px;
+	}
+	#tosarea {
+		padding: 5px;
+		height:    -moz-calc(100% - 10px);
+		height: -webkit-calc(100% - 10px);
+		height:         calc(100% - 10px);
+		font-size: initial;
+		position: relative;
+	}
+	#tosarea h1 {
+		font-family: "Helvetica Neue", Helvetica;
+	}
+	#tostext {
+		padding: 5px;
+		white-space: normal;
+		text-align: justify;
+		height:    -moz-calc(100% - 140px);
+		height: -webkit-calc(100% - 140px);
+		height:         calc(100% - 140px);
+		overflow: auto;
+		font-family: "Times New Roman", Times;
+		margin-bottom: 15px;
+	}
+	#tostext p {
+		text-indent: 2em;
+	}
+	#tostext h1, #tostext h2, #tostext h3, #tostext h4, #tostext .centered {
+		text-align: center;
+		text-indent: 0px;
+	}
 }
 @media (max-width: 767px) {
-    #mobiledetect {
-        display: none;
-    }
+	#mobiledetect {
+		display: none;
+	}
 }
 #atoggle {
-    height: 30px;
-    width: 50px;
-    margin-bottom: -1px;
+	height: 30px;
+	width: 50px;
+	margin-bottom: -1px;
 }
 input[type="text"], input[type="password"] {
-    border-radius: 4px;
-    outline: none;
+	border-radius: 4px;
+	outline: none;
 }
 input.form[type="text"], input.form[type="password"] {
-    margin-bottom: 10px;
-    margin-left: 20px;
-    padding: 3px;
-    font-size: 13px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	padding: 3px;
+	font-size: 13px;
 }
 .button {
-    outline: none;
-    border-radius: 4px;
-    padding: 5px 15px;
-    font-size: 13px;
+	outline: none;
+	border-radius: 4px;
+	padding: 5px 15px;
+	font-size: 13px;
 }
 input.form[type="checkbox"] {
-    margin: 8px 13px 13px;
+	margin: 8px 13px 13px;
 }
 .button-active {
-    outline: none;
-    border-radius: 4px;
-    padding: 5px 15px;
-    font-size: 13px;
+	outline: none;
+	border-radius: 4px;
+	padding: 5px 15px;
+	font-size: 13px;
 }
 .button-danger {
-    outline: none;
-    border-radius: 4px;
-    padding: 5px 15px;
-    font-size: 13px;
+	outline: none;
+	border-radius: 4px;
+	padding: 5px 15px;
+	font-size: 13px;
 }
 .button-success {
-    outline: none;
-    border-radius: 4px;
-    padding: 5px 15px;
-    font-size: 13px;
+	outline: none;
+	border-radius: 4px;
+	padding: 5px 15px;
+	font-size: 13px;
 }
