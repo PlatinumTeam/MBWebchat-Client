@@ -1,0 +1,260 @@
+body {
+	background-color: #eee;
+	color: #000;
+}
+@media (min-width: 480px) {
+	#chatbox, #userbox, #messagebox {
+		background-color: #fff;
+		border: 1px solid #ccc;
+	}
+	#loginmodal {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	#loginbox {
+		background-color: #eee;
+		border: 1px solid #ccc;
+	}
+	#tosmodal {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	#tosbox {
+		background-color: #eee;
+		border: 1px solid #ccc;
+	}
+	::-webkit-scrollbar-track {
+		background: #eee;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ccc;
+	}
+}
+@media (max-width: 479px) {
+	#chatbox, #userbox, #messagebox {
+		background-color: #fff;
+		border: 1px solid #ccc;
+	}
+	#loginmodal {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	#loginbox {
+		background-color: #eee;
+		border: 1px solid #ccc;
+	}
+	input.form[type="text"], input.form[type="password"] {
+		border: 1px solid #ccc;
+	}
+	input.form[type="text"]:focus, input.form[type="password"]:focus {
+		border: 1px solid #9cf;
+	}
+	#tosmodal {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	#tosbox {
+		background-color: #eee;
+		border: 1px solid #ccc;
+	}
+}
+input[type="text"], input[type="password"] {
+	background-color: #fff;
+	border: 1px solid #999;
+	color: #000;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+	border: 1px solid #36f;
+}
+input.form[disabled="disabled"] {
+	background-color: #ccc;
+}
+.button {
+	color: #000;
+	background-color: #ddd;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff), to(#ddd));
+	background: -webkit-linear-gradient(#fff, #ddd);
+	background: -moz-linear-gradient(#fff, #ddd);
+	background: -ms-linear-gradient(#fff, #ddd);
+	background: -o-linear-gradient(#fff, #ddd);
+	background: linear-gradient(#fff, #ddd);
+	border: 1px solid #999;
+}
+.button:hover {
+	color: #000;
+	background-color: #ddd;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#eee), to(#ccc));
+	background: -webkit-linear-gradient(#eee, #ccc);
+	background: -moz-linear-gradient(#eee, #ccc);
+	background: -ms-linear-gradient(#eee, #ccc);
+	background: -o-linear-gradient(#eee, #ccc);
+	background: linear-gradient(#eee, #ccc);
+}
+.button:active, .button.active {
+	color: #000;
+	background-color: #ddd;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ddd), to(#bbb));
+	background: -webkit-linear-gradient(#ddd, #bbb);
+	background: -moz-linear-gradient(#ddd, #bbb);
+	background: -ms-linear-gradient(#ddd, #bbb);
+	background: -o-linear-gradient(#ddd, #bbb);
+	background: linear-gradient(#ddd, #bbb);
+}
+.button[disabled="disabled"] {
+	color: #444;
+	background-color: #ddd;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#aaa), to(#888));
+	background: -webkit-linear-gradient(#aaa, #888);
+	background: -moz-linear-gradient(#aaa, #888);
+	background: -ms-linear-gradient(#aaa, #888);
+	background: -o-linear-gradient(#aaa, #888);
+	background: linear-gradient(#aaa, #888);
+}
+.button-active {
+	color: #fff;
+	background-color: #06f;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#6af), to(#06f));
+	background: -webkit-linear-gradient(#6af, #06f);
+	background: -moz-linear-gradient(#6af, #06f);
+	background: -ms-linear-gradient(#6af, #06f);
+	background: -o-linear-gradient(#6af, #06f);
+	background: linear-gradient(#6af, #06f);
+	border: 1px solid #999;
+}
+.button-active:hover {
+	color: #fff;
+	background-color: #06f;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#69f), to(#03f));
+	background: -webkit-linear-gradient(#69f, #03f);
+	background: -moz-linear-gradient(#69f, #03f);
+	background: -ms-linear-gradient(#69f, #03f);
+	background: -o-linear-gradient(#69f, #03f);
+	background: linear-gradient(#69f, #03f);
+}
+.button-active:active {
+	color: #fff;
+	background-color: #06f;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#06f), to(#33f));
+	background: -webkit-linear-gradient(#06f, #33f);
+	background: -moz-linear-gradient(#06f, #33f);
+	background: -ms-linear-gradient(#06f, #33f);
+	background: -o-linear-gradient(#06f, #33f);
+	background: linear-gradient(#06f, #33f);
+}
+.button-active[disabled="disabled"] {
+	color: #666;
+	background-color: #06f;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#9cf), to(#69f));
+	background: -webkit-linear-gradient(#9cf, #69f);
+	background: -moz-linear-gradient(#9cf, #69f);
+	background: -ms-linear-gradient(#9cf, #69f);
+	background: -o-linear-gradient(#9cf, #69f);
+	background: linear-gradient(#9cf, #69f);
+}
+.button-danger {
+	color: #fff;
+	background-color: #f00;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f30), to(#c00));
+	background: -webkit-linear-gradient(#f30, #c00);
+	background: -moz-linear-gradient(#f30, #c00);
+	background: -ms-linear-gradient(#f30, #c00);
+	background: -o-linear-gradient(#f30, #c00);
+	background: linear-gradient(#f30, #c00);
+	border: 1px solid #999;
+}
+.button-danger:hover {
+	color: #fff;
+	background-color: #f30;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f52), to(#e00));
+	background: -webkit-linear-gradient(#f52, #e00);
+	background: -moz-linear-gradient(#f52, #e00);
+	background: -ms-linear-gradient(#f52, #e00);
+	background: -o-linear-gradient(#f52, #e00);
+	background: linear-gradient(#f52, #e00);
+}
+.button-danger:active {
+	color: #fff;
+	background-color: #c00;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#c00), to(#a30));
+	background: -webkit-linear-gradient(#c00, #a30);
+	background: -moz-linear-gradient(#c00, #a30);
+	background: -ms-linear-gradient(#c00, #a30);
+	background: -o-linear-gradient(#c00, #a30);
+	background: linear-gradient(#c00, #a30);
+}
+.button-danger[disabled="disabled"] {
+	color: #666;
+	background-color: #f00;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f99), to(#f66));
+	background: -webkit-linear-gradient(#f99, #f66);
+	background: -moz-linear-gradient(#f99, #f66);
+	background: -ms-linear-gradient(#f99, #f66);
+	background: -o-linear-gradient(#f99, #f66);
+	background: linear-gradient(#f99, #f66);
+}
+.button-success {
+	color: #fff;
+	background-color: #0f0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#3a0), to(#080));
+	background: -webkit-linear-gradient(#3a0, #080);
+	background: -moz-linear-gradient(#3a0, #080);
+	background: -ms-linear-gradient(#3a0, #080);
+	background: -o-linear-gradient(#3a0, #080);
+	background: linear-gradient(#3a0, #080);
+	border: 1px solid #999;
+}
+.button-success:hover {
+	color: #fff;
+	background-color: #3f0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#5c2), to(#0a0));
+	background: -webkit-linear-gradient(#5c2, #0a0);
+	background: -moz-linear-gradient(#5c2, #0a0);
+	background: -ms-linear-gradient(#5c2, #0a0);
+	background: -o-linear-gradient(#5c2, #0a0);
+	background: linear-gradient(#5c2, #0a0);
+}
+.button-success:active {
+	color: #fff;
+	background-color: #0c0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#080), to(#360));
+	background: -webkit-linear-gradient(#080, #360);
+	background: -moz-linear-gradient(#080, #360);
+	background: -ms-linear-gradient(#080, #360);
+	background: -o-linear-gradient(#080, #360);
+	background: linear-gradient(#080, #360);
+}
+.button-success[disabled="disabled"] {
+	color: #bbb;
+	background-color: #0f0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#696), to(#363));
+	background: -webkit-linear-gradient(#696, #363);
+	background: -moz-linear-gradient(#696, #363);
+	background: -ms-linear-gradient(#696, #363);
+	background: -o-linear-gradient(#696, #363);
+	background: linear-gradient(#696, #363);
+}
+.color-normal       { color: #000000; }
+.color-mod          { color: #0000cc; }
+.color-admin        { color: #cc0000; }
+.color-whisperfrom  { color: #999999; }
+.color-whispermsg   { color: #804300; }
+.color-notification { color: #cc9900; }
+.color-welcome      { color: #669900; }
+.color-help         { color: #669900; }
+.color-lagout       { color: #ff0000; }
+.color-usage        { color: #999999; }
+.color-server       { color: #0000ff; }
+.color-me           { color: #8000ff; }
+.color-visible      { color: #009900; }
+.color-invisible    { color: #999999; }
+.color-record       { color: #009900; }
+.color-tasks        { color: #6699ff; }
+.color-greentext    { color: #789922; }
+.color-access--3    { color: #000000; }
+.color-access-0     { color: #000000; }
+.color-access-1     { color: #0000cc; }
+.color-access-2     { color: #cc0000; }
+.color-access-3     { color: #000000; }
+.color-user {
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.titlebar-gradient-1 { color: rgb(240, 240, 240); }
+.titlebar-gradient-2 { color: rgb(212, 212, 212); }
+.titlebar-text { color: rgb(80, 80, 80); }
