@@ -30,7 +30,7 @@ if (array_key_exists("skin", $_COOKIE)) {
 }
 
 //Prevent people from XSSing the skin parameter
-$skin = strtolower($name);
+$skin = strtolower($skin);
 $skin = preg_replace('/[^a-z0-9]/s', '', $skin);
 
 //Generate a list of all the current skins.
