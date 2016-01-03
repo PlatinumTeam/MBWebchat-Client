@@ -1,6 +1,7 @@
 <?php
 define("WEBCHAT", 1);
 require("user.php");
+require("scripts.php");
 
 //JSONP - Load the user's information from marbleblast.com even though we're on the webchat.marbleblast.com domain.
 // Users will request /webchat/?getkey=1 as a javascript file, and evaluate the contents. We give them a short
@@ -14,36 +15,6 @@ if (array_key_exists("getkey", $_POST)) {
 	header("Content-Type: text/javascript");
 	header("Access-Control-Allow-Origin: http://webchat.marbleblast.com");
 	die(getLoginJSONP($_POST["getkey"]));
-}
-
-//Check for a skin name in either their parameter string or cookies, and verify that it exists
-$skin = "white";
-if (array_key_exists("skin", $_GET)) {
-	if (is_file("assets/skins/{$_GET["skin"]}.css")) {
-		$skin = $_GET["skin"];
-	}
-}
-if (array_key_exists("skin", $_COOKIE)) {
-	if (is_file("assets/skins/{$_COOKIE["skin"]}.css")) {
-		$skin = $_COOKIE["skin"];
-	}
-}
-
-//Prevent people from XSSing the skin parameter
-$skin = strtolower($skin);
-$skin = preg_replace('/[^a-z0-9]/s', '', $skin);
-
-//Generate a list of all the current skins.
-$skins = array();
-if (($dir = opendir("assets/skins/")) !== FALSE) {
-	while (($file = readdir($dir)) !== FALSE) {
-		//Ignore directories and index.html
-		if ($file == "." || $file == ".." || $file == "index.html")
-			continue;
-		//Gets "white" from "path/to/white.css"
-		$skins[] = pathinfo($file, PATHINFO_FILENAME);
-	}
-	closedir($dir);
 }
 ?>
 <html>
@@ -66,7 +37,7 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 
 	<!-- Styles in the head, so they load first -->
 	<link rel="stylesheet" type="text/css" href="assets/webchat.css">
-	<link id="styleskin" rel="stylesheet" type="text/css" href="assets/skins/<?=$skin?>.css">
+	<link id="styleskin" rel="stylesheet" type="text/css" href="assets/skins/<?=getSkinName()?>.css">
 
 	<!-- Mobile phones like to zoom. We don't like that. -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -222,46 +193,6 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 <div id="mobiledetect">
 </div>
 <!-- Scripts come at the end so as not to keep the DOM waiting. -->
-<script type="text/javascript" src="assets/webchat.js"></script>
-<?php
-if (!empty($_SERVER["HTTPS"])) {?>
-	<!-- Since you're using SSL, we need the SSL server's address -->
-	<script type="text/javascript">
-		webchat.servers[0].port = 9192;
-		webchat.servers[0].address = "wss://marbleblast.com";
-	</script>
-	<?php
-}
-?>
-<?php
-if (array_key_exists("port", $_GET)) {
-	$port = (int)$_GET["port"];
-	echo("<script type=\"text/javascript\">webchat.servers[0].port = $port; if (webchat.servers.length > 1) webchat.servers.pop(1); </script>");
-}
-if (array_key_exists("address", $_GET)) {
-	$address = addslashes($_GET["address"]);
-	echo("<script type=\"text/javascript\">webchat.servers[0].address = '$address'; if (webchat.servers.length > 1) webchat.servers.pop(1);</script>");
-}
-?>
-<!-- JSONP, should either load our user info or redirect us. -->
-<?php
-if (array_key_exists("username", $_COOKIE) && array_key_exists("key", $_COOKIE)) {
-	//If we're here, then we're on marbleblast.com/webchat/ and we _do_ have their info. Spit it out for them.
-	echo("<script type=\"text/javascript\">" . getLoginJSONP("JS") . "</script>");
-} else {
-	//If we're here, we're on webchat.marbleblast.com and we don't have their username. Send a JSONP request to
-	// the main marbleblast.com domain (with cookies, which cannot be sent with XHR) which will return a script
-	// for filling in their information (see above, user.php).
-	echo("<script type=\"text/javascript\" src=\"//marbleblast.com/webchat/?getkey=JS\"></script>");
-}
-//The black skin has inverted colors by default
-if ($skin === "black") {
-	echo("<script type=\"text/javascript\">webchat.setInvertColors(true);</script>");
-} else {
-	echo("<script type=\"text/javascript\">webchat.setInvertColors(false);</script>");
-}
-?>
-<!-- Dynamically generated skin list -->
-<script type="text/javascript">webchat.skins = <?=json_encode($skins)?>; webchat.skin = "<?=$skin?>";</script>
+<?php loadScripts(); ?>
 </body>
 </html>
