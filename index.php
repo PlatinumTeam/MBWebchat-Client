@@ -122,11 +122,11 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 	</div>
 </div>
 <!-- My forms are a disaster but at least I don't use Bootstrap. -->
-<div id="loginmodal">
-	<div id="loginframe">
-		<div id="loginoutline">
-			<div id="loginbox">
-				<div id="loginarea">
+<div class="dialogmodal" id="loginmodal">
+	<div class="dialogframe">
+		<div class="dialogoutline">
+			<div class="dialogbox">
+				<div class="dialogarea">
 					<h1 id="logintitle">Log In</h1>
 					<p id="loginmessage">Log in with your marbleblast.com account to access the chat system.</p>
 					<form action="javascript:void(0);" id="loginform">
@@ -153,11 +153,11 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 	</div>
 </div>
 <!-- No, I don't use min either. Sorry, Owen. -->
-<div id="tosmodal">
-	<div id="tosframe">
-		<div id="tosoutline">
-			<div id="tosbox">
-				<div id="tosarea">
+<div class="dialogmodal" id="tosmodal">
+	<div class="dialogframe">
+		<div class="dialogoutline">
+			<div class="dialogbox">
+				<div class="dialogarea">
 					<h1 id="logintitle">Terms of Service</h1>
 					<div id="tostext">
 						<div id="toscontent">

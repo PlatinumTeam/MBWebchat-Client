@@ -7,17 +7,10 @@ body {
 		background-color: #fff;
 		border: 1px solid #ccc;
 	}
-	#loginmodal {
+	.dialogmodal {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
-	#loginbox {
-		background-color: #eee;
-		border: 1px solid #ccc;
-	}
-	#tosmodal {
-		background-color: rgba(0, 0, 0, 0.5);
-	}
-	#tosbox {
+	.dialogbox {
 		background-color: #eee;
 		border: 1px solid #ccc;
 	}
@@ -33,10 +26,10 @@ body {
 		background-color: #fff;
 		border: 1px solid #ccc;
 	}
-	#loginmodal {
+	.dialogmodal {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
-	#loginbox {
+	.dialogbox {
 		background-color: #eee;
 		border: 1px solid #ccc;
 	}
@@ -45,13 +38,6 @@ body {
 	}
 	input.form[type="text"]:focus, input.form[type="password"]:focus {
 		border: 1px solid #9cf;
-	}
-	#tosmodal {
-		background-color: rgba(0, 0, 0, 0.5);
-	}
-	#tosbox {
-		background-color: #eee;
-		border: 1px solid #ccc;
 	}
 }
 input[type="text"], input[type="password"] {
