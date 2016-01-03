@@ -38,8 +38,6 @@ function loadScripts() {
 		}
 		closedir($dir);
 	}
-	echo("<script type=\"text/javascript\" src=\"assets/webchat.js\"></script>");
-
 	if (!empty($_SERVER["HTTPS"])) {
 		//Since you're using SSL, we need the SSL server's address
 		echo("

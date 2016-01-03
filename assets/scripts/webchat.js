@@ -164,17 +164,17 @@
 		},
 		enableLogin: function(enabled) {
 			if (enabled) {
-				webchat.loginusername.attr("disabled", null);
-				webchat.loginpassword.attr("disabled", null);
-                webchat.loginremember.attr("disabled", null);
-				webchat.loginsubmit.attr("disabled", null);
-				webchat.loginguest.attr("disabled", null);
+				this.loginusername.attr("disabled", null);
+				this.loginpassword.attr("disabled", null);
+                this.loginremember.attr("disabled", null);
+				this.loginsubmit.attr("disabled", null);
+				this.loginguest.attr("disabled", null);
 			} else {
-				webchat.loginusername.attr("disabled", "disabled");
-				webchat.loginpassword.attr("disabled", "disabled");
-                webchat.loginremember.attr("disabled", "disabled");
-				webchat.loginsubmit.attr("disabled", "disabled");
-				webchat.loginguest.attr("disabled", "disabled");
+				this.loginusername.attr("disabled", "disabled");
+				this.loginpassword.attr("disabled", "disabled");
+                this.loginremember.attr("disabled", "disabled");
+				this.loginsubmit.attr("disabled", "disabled");
+				this.loginguest.attr("disabled", "disabled");
 			}
 		},
 		setLoginStatus: function(text) {
@@ -400,7 +400,7 @@
 		detectMobile: function() {
 			this.mobile = ($("#mobiledetect").css("display") === "none");
 			if (this.mobile) {
-				this.textbox.focus(function() {
+				this.textbox.focus(function() {this
 					//Custom "keyboard open" classes for these controls because the userlist keeps getting in the way
 					webchat.chatframe.toggleClass("keyboard");
 					webchat.userframe.toggleClass("keyboard");
