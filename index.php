@@ -193,8 +193,8 @@ if (array_key_exists("getkey", $_POST)) {
 <div id="mobiledetect">
 </div>
 <!-- Scripts come at the end so as not to keep the DOM waiting. -->
-<script type="text/javascript" src="assets/scripts/webchat.js"></script>
 <script type="text/javascript" src="assets/scripts/utils.js"></script>
+<script type="text/javascript" src="assets/scripts/webchat.js"></script>
 <!-- Dynamically generated scripts at the end -->
 <?php loadScripts(); ?>
 </body>
