@@ -58,6 +58,9 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
+	<!-- Super cool icons by Font Awesome -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 	<!-- Support older browsers with crappy web sockets -->
 	<script src="assets/jquery.gracefulWebSocket.js"></script>
 
@@ -117,6 +120,7 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 			<div id="messagebox">
 				<input type="hidden" id="atoggle" class="button" value="/a">
 				<input type="text" id="textbox" value="">
+				<button id="settingsbutton" class="button"><i class="fa fa-cog"></i></button>
 			</div>
 		</div>
 	</div>
@@ -166,6 +170,48 @@ if (($dir = opendir("assets/skins/")) !== FALSE) {
 					</div>
 					<input type="submit" class="button-danger" id="tosdecline" value="Decline">
 					<input type="submit" class="button-success" id="tosaccept" value="Accept">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="dialogmodal" id="settingsmodal">
+	<div class="dialogframe">
+		<div class="dialogoutline">
+			<div class="dialogbox">
+				<div class="dialogarea">
+					<h1>Chat Settings</h1>
+					<div id="settingstext">
+						<div id="settingscontent">
+							Show the following notifications:
+							<ul>
+								<li>
+									<input type="checkbox" name="settingsnotiflogin" id="settingsnotiflogin" checked>
+									<label for="settingsnotiflogin">Logins / Logouts</label>
+								</li>
+								<li>
+									<input type="checkbox" name="settingsnotifrecord" id="settingsnotifrecord" checked>
+									<label for="settingsnotifrecord">World Records</label>
+								</li>
+								<li>
+									<input type="checkbox" name="settingsnotiflevelup" id="settingsnotiflevelup" checked>
+									<label for="settingsnotiflevelup">Fubar Level-Ups</label>
+								</li>
+								<li>
+									<input type="checkbox" name="settingsnotifmastery" id="settingsnotifmastery" checked>
+									<label for="settingsnotifmastery">Fubar Mastery Points</label>
+								</li>
+								<li>
+									<input type="checkbox" name="settingsnotifprestigeup" id="settingsnotifprestigeup" checked>
+									<label for="settingsnotifprestigeup">Fubar Prestige Ranks</label>
+								</li>
+							</ul>
+							Discard saved session information:
+							<input type="submit" class="button-danger" id="settingsdiscard" name="settingsdiscard" value="Discard">
+							<br>
+						</div>
+					</div>
+					<input type="submit" class="button-active" id="settingsclose" value="Close">
 				</div>
 			</div>
 		</div>

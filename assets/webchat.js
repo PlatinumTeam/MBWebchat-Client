@@ -112,6 +112,9 @@
 		showa: false,
 		onlya: false,
 		lastmessage: null,
+		settings: {
+
+		},
 		setInvertColors: function(invert) {
 			this.invertcolors = invert;
 
@@ -220,17 +223,23 @@
 		hideTOS: function() {
 			$("#tosmodal").fadeOut();
 		},
+		showSettings: function() {
+			$("#settingsmodal").fadeIn();
+		},
+		hideSettings: function() {
+			$("#settingsmodal").fadeOut();
+		},
 		enableLogin: function(enabled) {
 			if (enabled) {
 				webchat.loginusername.attr("disabled", null);
 				webchat.loginpassword.attr("disabled", null);
-				webchat.loginremember.attr("disabled", null);
+                webchat.loginremember.attr("disabled", null);
 				webchat.loginsubmit.attr("disabled", null);
 				webchat.loginguest.attr("disabled", null);
 			} else {
 				webchat.loginusername.attr("disabled", "disabled");
 				webchat.loginpassword.attr("disabled", "disabled");
-				webchat.loginremember.attr("disabled", "disabled");
+                webchat.loginremember.attr("disabled", "disabled");
 				webchat.loginsubmit.attr("disabled", "disabled");
 				webchat.loginguest.attr("disabled", "disabled");
 			}
@@ -327,26 +336,28 @@
 		},
 		setup: function() {
 			//Set these fields so we can access them later
-			this.chatbox       = $("#chatbox");
-			this.userbox       = $("#userbox");
-			this.textbox       = $("#textbox");
-			this.chatframe     = $("#chatframe");
-			this.userframe     = $("#userframe");
-			this.messageframe  = $("#messageframe");
-			this.messagebox    = $("#messagebox");
-			this.loginform     = $("#loginform");
-			this.loginusername = $("#loginusername");
-			this.loginpassword = $("#loginpassword");
-			this.loginkey      = $("#loginkey");
-			this.loginremember = $("#loginremember");
-			this.loginsubmit   = $("#loginsubmit");
-			this.loginguest    = $("#loginguest");
-			this.loginstatus   = $("#loginstatus");
-			this.titletext     = $("#titletext");
-			this.titlestatus   = $("#titlestatus");
-			this.tosaccept     = $("#tosaccept");
-			this.tosdecline    = $("#tosdecline");
-			this.atoggle       = $("#atoggle");
+			this.chatbox        = $("#chatbox");
+			this.userbox        = $("#userbox");
+			this.textbox        = $("#textbox");
+			this.chatframe      = $("#chatframe");
+			this.userframe      = $("#userframe");
+			this.messageframe   = $("#messageframe");
+			this.messagebox     = $("#messagebox");
+			this.loginform      = $("#loginform");
+			this.loginusername  = $("#loginusername");
+			this.loginpassword  = $("#loginpassword");
+            this.loginkey       = $("#loginkey");
+            this.loginremember  = $("#loginremember");
+			this.loginsubmit    = $("#loginsubmit");
+			this.loginguest     = $("#loginguest");
+			this.loginstatus    = $("#loginstatus");
+			this.titletext      = $("#titletext");
+			this.titlestatus    = $("#titlestatus");
+			this.tosaccept      = $("#tosaccept");
+			this.tosdecline     = $("#tosdecline");
+			this.atoggle        = $("#atoggle");
+			this.settingsbutton = $("#settingsbutton");
+			this.settingsclose  = $("#settingsclose");
 
 			this.setStatus("Disconnected");
 
@@ -421,6 +432,13 @@
 				webchat.setOnlyA(!webchat.onlya);
 			});
 
+			this.settingsbutton.click(function(e) {
+				webchat.showSettings();
+			});
+			this.settingsclose.click(function(e) {
+				webchat.hideSettings();
+			});
+
 			//Setup the title flashing
 			setInterval(this.flashTitle, 1000);
 		},
@@ -474,26 +492,26 @@
 			this.user.username = username;
 			this.user.key = key;
 
-			//If they wanted us to remember their password, do so
-			if (this.loginremember.is(":checked")) {
-				//Date is for 1000 years in the future, let's hope your computer isn't around by then
-				var date = new Date();
-				date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+            //If they wanted us to remember their password, do so
+            if (this.loginremember.is(":checked")) {
+                //Date is for 1000 years in the future, let's hope your computer isn't around by then
+                var date = new Date();
+                date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
 
-				//Setting cookies is strange, you'd think you need to concatenate, but this is actually how you do it
-				document.cookie = "username=" + username + "; expires=" + date.toUTCString();
-				document.cookie = "key=" + key + "; expires=" + date.toUTCString();
-			}
+                //Setting cookies is strange, you'd think you need to concatenate, but this is actually how you do it
+                document.cookie = "username=" + username + "; expires=" + date.toUTCString();
+                document.cookie = "key=" + key + "; expires=" + date.toUTCString();
+            }
 
 			//If they don't have a password filled in, we can use the key to appear as their password.
 			// We don't actually store the password in a cookie though, who does that? (Looking at you, Spy)
 			if (this.loginusername.val() === "") {
 				this.loginusername.val(username);
-				this.loginkey.val(key);
+                this.loginkey.val(key);
 
-				//Hide the password field and use the key field instead so we don't autocomplete the key
-				this.loginpassword.attr("type", "hidden");
-				this.loginkey.attr("type", "password");
+                //Hide the password field and use the key field instead so we don't autocomplete the key
+                this.loginpassword.attr("type", "hidden");
+                this.loginkey.attr("type", "password");
 			}
 		},
 		connect: function(server) {
@@ -1283,17 +1301,17 @@
 			return text;
 		},
 		addChat: function(text) {
-			//Only scroll down if we're near the bottom, using ~30px.
-			//Do this above the append so we don't screw up large blocks of text
-			var shouldScroll = (Math.abs(this.chatbox.height() + this.chatbox.scrollTop() - this.chatbox[0].scrollHeight) < 100);
+            //Only scroll down if we're near the bottom, using ~30px.
+            //Do this above the append so we don't screw up large blocks of text
+            var shouldScroll = (Math.abs(this.chatbox.height() + this.chatbox.scrollTop() - this.chatbox[0].scrollHeight) < 100);
 
 			//Wrap chat in a <div> so we don't pollute anything
 			this.chatbox.append("<div>" + text + "</div>");
 
-			//Check if we should scroll
-			if (shouldScroll) {
-				this.chatbox.scrollTop(this.chatbox[0].scrollHeight);
-			}
+            //Check if we should scroll
+            if (shouldScroll) {
+                this.chatbox.scrollTop(this.chatbox[0].scrollHeight);
+            }
 		},
 		formatChat: function(text, access) {
 			//Greentext, I'm so sorry

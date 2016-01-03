@@ -101,6 +101,11 @@ html, body {
     #messageframe.guest {
         display: none;
     }
+    #settingsbutton {
+        font-size: 18px;
+        width: 50px;
+        height: 30px;
+    }
     #chatframe.guest, #userframe.guest {
         top: 40px;
         height:    -moz-calc(100% - 40px);
@@ -171,6 +176,17 @@ html, body {
     }
     .dialogarea h1 {
         font-family: "Helvetica Neue", Helvetica;
+    }
+    #settingstext {
+        padding: 5px;
+        white-space: normal;
+        text-align: justify;
+        height:    -moz-calc(100% - 140px);
+        height: -webkit-calc(100% - 140px);
+        height:         calc(100% - 140px);
+        overflow: auto;
+        font-family: "Helvetica Neue", Times;
+        margin-bottom: 15px;
     }
     #tostext {
         padding: 5px;
