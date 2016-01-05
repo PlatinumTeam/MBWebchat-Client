@@ -34,29 +34,19 @@ function getLoginJSONP($type) {
 	//Ignore any messages from the login system that may corrupt our JSON
 	ob_start();
 
-	//See if we can login with Joomla, easiest method. Should work if they're already logged in on the site
-	$user = JFactory::getUser();
-	if ($user->id == 0) {
-		//Not logged in, try another method:
-
-		if (array_key_exists("username", $_COOKIE) && array_key_exists("key", $_COOKIE)) {
-			//We may have saved these via javascript. Try loading them
-			$username = strtolower($_COOKIE["username"]);
-			$key = $_COOKIE["key"];
-			$success = true;
-		} else if (checkPostLogin() == 7) {
-			//Can we log in with leaderboards?
-			$username = strtolower(getPostValue("username"));
-			$key = getKey($username);
-			$success = true;
-		} else {
-			//Nope
-			$success = false;
-		}
-	} else {
-		$username = strtolower($user->username);
-		$key = getKey($user->username);
+	if (array_key_exists("username", $_COOKIE) && array_key_exists("key", $_COOKIE)) {
+		//We may have saved these via javascript. Try loading them
+		$username = strtolower($_COOKIE["username"]);
+		$key = $_COOKIE["key"];
 		$success = true;
+	} else if (checkPostLogin() == 7) {
+		//Can we log in with leaderboards?
+		$username = strtolower(getPostValue("username"));
+		$key = getKey($username);
+		$success = true;
+	} else {
+		//Nope
+		$success = false;
 	}
 
 	ob_end_clean();
@@ -64,7 +54,7 @@ function getLoginJSONP($type) {
 	//Return their key formatted as specified
 	if ($success) {
 		if ($type === "JS") {
-			return "webchat.setUser(\"$username\", \"$key\"); webchat.connect();";
+			return "webchat.setUser(\"$username\", \"$key\", \"true\"); webchat.connect();";
 		} else if ($type === "JSON") {
 			return json_encode(array("success" => true, "username" => $username, "key" => $key));
 		}
