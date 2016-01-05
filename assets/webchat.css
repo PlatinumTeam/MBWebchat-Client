@@ -105,6 +105,7 @@ html, body {
         font-size: 18px;
         width: 50px;
         height: 30px;
+        float: right;
     }
     #chatframe.guest, #userframe.guest {
         top: 40px;
@@ -177,6 +178,9 @@ html, body {
     .dialogarea h1 {
         font-family: "Helvetica Neue", Helvetica;
     }
+    .dialogarea hr {
+        margin: 10px -5px;
+    }
     #tostext {
         padding: 5px;
         white-space: normal;
@@ -196,12 +200,12 @@ html, body {
         text-indent: 0px;
     }
     #settingstext {
-        padding: 5px;
+        padding: 5px 40px;
         white-space: normal;
         text-align: justify;
-        height:    -moz-calc(100% - 140px);
-        height: -webkit-calc(100% - 140px);
-        height:         calc(100% - 140px);
+        height:    -moz-calc(100% - 155px);
+        height: -webkit-calc(100% - 155px);
+        height:         calc(100% - 155px);
         overflow: auto;
         font-family: "Helvetica Neue", Times;
         margin-bottom: 15px;
@@ -319,6 +323,7 @@ html, body {
         font-size: 18px;
         width: 50px;
         height: 30px;
+        float: right;
     }
     .dialogmodal {
         display: none;
@@ -362,6 +367,9 @@ html, body {
         height:         calc(100% - 10px);
         font-size: initial;
         position: relative;
+    }
+    .dialogarea hr {
+        margin: 10px -5px;
     }
     #loginarea h1 {
         font-family: "Helvetica Neue", Helvetica;

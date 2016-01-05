@@ -152,6 +152,7 @@ if (array_key_exists("getkey", $_POST)) {
 			<div class="dialogbox">
 				<div class="dialogarea">
 					<h1>Chat Settings</h1>
+					<hr>
 					<div id="settingstext">
 						<div id="settingscontent">
 							Show the following notifications:
