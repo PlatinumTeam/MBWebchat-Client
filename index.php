@@ -157,23 +157,23 @@ if (array_key_exists("getkey", $_POST)) {
 							Show the following notifications:
 							<ul class="settingslist">
 								<li>
-									<input type="checkbox" name="settingsnotiflogin" id="settingsnotiflogin" checked>
+									<input type="checkbox" class="settingsnotif" id="settingsnotiflogin" setting="login" checked>
 									<label for="settingsnotiflogin">Logins / Logouts</label>
 								</li>
 								<li>
-									<input type="checkbox" name="settingsnotifrecord" id="settingsnotifrecord" checked>
+									<input type="checkbox" class="settingsnotif" id="settingsnotifrecord" setting="record" checked>
 									<label for="settingsnotifrecord">World Records</label>
 								</li>
 								<li>
-									<input type="checkbox" name="settingsnotiflevelup" id="settingsnotiflevelup" checked>
+									<input type="checkbox" class="settingsnotif" id="settingsnotiflevelup" setting="levelup" checked>
 									<label for="settingsnotiflevelup">Fubar Level-Ups</label>
 								</li>
 								<li>
-									<input type="checkbox" name="settingsnotifmastery" id="settingsnotifmastery" checked>
+									<input type="checkbox" class="settingsnotif" id="settingsnotifmastery" setting="mastery" checked>
 									<label for="settingsnotifmastery">Fubar Mastery Points</label>
 								</li>
 								<li>
-									<input type="checkbox" name="settingsnotifprestigeup" id="settingsnotifprestigeup" checked>
+									<input type="checkbox" class="settingsnotif" id="settingsnotifprestigeup" setting="prestigeup" checked>
 									<label for="settingsnotifprestigeup">Fubar Prestige Ranks</label>
 								</li>
 							</ul>
@@ -195,6 +195,7 @@ if (array_key_exists("getkey", $_POST)) {
 <!-- Scripts come at the end so as not to keep the DOM waiting. -->
 <script type="text/javascript" src="assets/scripts/utils.js"></script>
 <script type="text/javascript" src="assets/scripts/webchat.js"></script>
+<script type="text/javascript" src="assets/scripts/settings.js"></script>
 <!-- Dynamically generated scripts at the end -->
 <?php loadScripts(); ?>
 </body>

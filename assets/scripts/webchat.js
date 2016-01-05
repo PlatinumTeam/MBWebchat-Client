@@ -45,9 +45,6 @@
 		showa: false,
 		onlya: false,
 		lastmessage: null,
-		settings: {
-
-		},
 		setInvertColors: function(invert) {
 			this.invertcolors = invert;
 
@@ -155,12 +152,6 @@
 		},
 		hideTOS: function() {
 			$("#tosmodal").fadeOut();
-		},
-		showSettings: function() {
-			$("#settingsmodal").fadeIn();
-		},
-		hideSettings: function() {
-			$("#settingsmodal").fadeOut();
 		},
 		enableLogin: function(enabled) {
 			if (enabled) {
@@ -289,8 +280,6 @@
 			this.tosaccept      = $("#tosaccept");
 			this.tosdecline     = $("#tosdecline");
 			this.atoggle        = $("#atoggle");
-			this.settingsbutton = $("#settingsbutton");
-			this.settingsclose  = $("#settingsclose");
 
 			this.setStatus("Disconnected");
 
@@ -363,13 +352,6 @@
 			});
 			this.atoggle.click(function(e) {
 				webchat.setOnlyA(!webchat.onlya);
-			});
-
-			this.settingsbutton.click(function(e) {
-				webchat.showSettings();
-			});
-			this.settingsclose.click(function(e) {
-				webchat.hideSettings();
 			});
 
 			//Setup the title flashing
