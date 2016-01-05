@@ -1065,11 +1065,13 @@
 				//Remove them from the list
 				var user = this.findUser(username);
 				if (user !== -1) {
-					this.userlist.users.splice();
+					this.userlist.users.splice(user);
+					this.displayUserlist();
 				}
 				break;
 			case "setlocation":
 				this.userlist.users[this.findUser(username)].location = parseInt(message);
+				this.displayUserlist();
 				break;
 
 			//Fubar notifications
