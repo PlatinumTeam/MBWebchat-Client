@@ -228,7 +228,7 @@
 					var key = response.key;
 
 					webchat.relogin = false;
-					webchat.setUser(username, key);
+					webchat.setUser(username, key, webchat.loginremember.is(":checked"));
 					webchat.connect();
 				} else {
 					//No dice, although it's not the server's fault.
@@ -402,13 +402,30 @@
 			}
 			this.setWindowTitle("MarbleBlast.com Webchat", "Webchat");
 		},
-		setUser: function(username, key) {
+		setUser: function(username, key, remember) {
 			//Called via JSONP, sets the global username / chat key
 			this.user.username = username;
 			this.user.key = key;
 
+			if (username === "") {
+				//Delete cookie
+				document.cookie = "username=;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+				document.cookie = "key=;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+
+				//Reset the fields
+				this.loginusername.val("");
+				this.loginpassword.val("");
+				this.loginkey.val("");
+
+				//Show password field
+				this.loginpassword.attr("type", "password");
+				this.loginkey.attr("type", "hidden");
+
+				return;
+			}
+
             //If they wanted us to remember their password, do so
-            if (this.loginremember.is(":checked")) {
+            if (remember) {
                 //Date is for 1000 years in the future, let's hope your computer isn't around by then
                 var date = new Date();
                 date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
