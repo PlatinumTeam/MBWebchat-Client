@@ -883,7 +883,17 @@
 				//WELCOME <welcome message>
 				this.info.welcome = htmlDecode(data);
 				if (!this.relogging) {
-					this.addChat(this.colorMessage(this.info.welcome.replace(/\\n/g, "<br>"), "welcome"));
+					//Only scroll down if we're near the bottom, using ~30px.
+					//Do this above the append so we don't screw up large blocks of text
+					var shouldScroll = (Math.abs(this.chatbox.height() + this.chatbox.scrollTop() - this.chatbox[0].scrollHeight) < 100);
+
+					//Wrap chat in a <div> so we don't pollute anything
+					this.chatbox.prepend("<div>" + this.colorMessage(this.info.welcome.replace(/\\n/g, "<br>"), "welcome") + "</div>");
+
+					//Check if we should scroll
+					if (shouldScroll) {
+						this.chatbox.scrollTop(this.chatbox[0].scrollHeight);
+					}
 				}
 				break;
 			case "HELP":
