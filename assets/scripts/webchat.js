@@ -1046,10 +1046,12 @@
 			switch (type) {
 			//Basic chat notifications
 			case "login":
-				this.addChat(this.colorMessage(display + " has logged in!", "notification"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has logged in!", "notification"));
 				break;
 			case "logout":
-				this.addChat(this.colorMessage(display + " has logged out!", "notification"));
+				if (settings.shouldShowNotification("login")) //Same setting as login notifs
+					this.addChat(this.colorMessage(display + " has logged out!", "notification"));
 				//Remove them from the list
 				var user = this.findUser(username);
 				if (user !== -1) {
@@ -1062,19 +1064,24 @@
 
 			//Fubar notifications
 			case "levelup":
-				this.addChat(this.colorMessage(display + " has reached level " + htmlDecode(message) + "!", "notification"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has reached level " + htmlDecode(message) + "!", "notification"));
 				break;
 			case "mastery":
-				this.addChat(this.colorMessage(display + " has gained a Mastery Point!", "notification"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has gained a Mastery Point!", "notification"));
 				break;
 			case "taskcomplete":
-				this.addChat(this.colorMessage(display + " has completed the task, \"" + htmlDecode(decodeName(message)) + "\"!", "tasks"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has completed the task, \"" + htmlDecode(decodeName(message)) + "\"!", "tasks"));
 				break;
 			case "achievement":
-				this.addChat(this.colorMessage(display + " has completed the achievement, \"" + htmlDecode(decodeName(message)) + "\"!", "notification"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has completed the achievement, \"" + htmlDecode(decodeName(message)) + "\"!", "notification"));
 				break;
 			case "prestigeup":
-				this.addChat(this.colorMessage(display + " has gained a presige rank (" + htmlDecode(decodeName(message)) + ")!", "notification"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has gained a presige rank (" + htmlDecode(decodeName(message)) + ")!", "notification"));
 				break;
 
 			//World records
@@ -1082,7 +1089,8 @@
 				var level = getWord(message, 0);
 				var time  = getWord(message, 1);
 				//Level is formatted, we need to parse time though
-				this.addChat(this.colorMessage(display + " has just achieved a world record on \"" + htmlDecode(decodeName(level)) + "\" of " + formatTime(time), "record"));
+				if (settings.shouldShowNotification(type))
+					this.addChat(this.colorMessage(display + " has just achieved a world record on \"" + htmlDecode(decodeName(level)) + "\" of " + formatTime(time), "record"));
 				break;
 			}
 		},
