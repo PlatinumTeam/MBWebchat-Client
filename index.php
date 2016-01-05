@@ -165,6 +165,10 @@ if (array_key_exists("getkey", $_POST)) {
 									<label for="settingsnotifrecord">World Records</label>
 								</li>
 								<li>
+									<input type="checkbox" class="settingsnotif" id="settingsnotifachievement" setting="achievement" checked>
+									<label for="settingsnotifachievement">Achievements</label>
+								</li>
+								<li>
 									<input type="checkbox" class="settingsnotif" id="settingsnotiflevelup" setting="levelup" checked>
 									<label for="settingsnotiflevelup">Fubar Level-Ups</label>
 								</li>
@@ -178,11 +182,11 @@ if (array_key_exists("getkey", $_POST)) {
 								</li>
 							</ul>
 							Discard saved session information:
-							<input type="submit" class="button-danger" id="settingsdiscard" name="settingsdiscard" value="Discard">
+							<input type="submit" class="button button-danger" id="settingsdiscard" name="settingsdiscard" value="Discard">
 							<br>
 						</div>
 					</div>
-					<input type="submit" class="button-active" id="settingsclose" value="Close">
+					<input type="submit" class="button button-active" id="settingsclose" value="Close">
 				</div>
 			</div>
 		</div>
