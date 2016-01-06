@@ -181,6 +181,10 @@ if (array_key_exists("getkey", $_POST)) {
 									<input type="checkbox" class="settingsnotif" id="settingsnotifprestigeup" setting="prestigeup" checked>
 									<label for="settingsnotifprestigeup">Fubar Prestige Ranks</label>
 								</li>
+								<li>
+									<input type="checkbox" class="settingsnotif" id="settingsnotiftaskcomplete" setting="taskcomplete" checked>
+									<label for="settingsnotiftaskcomplete">Fubar Task Completions</label>
+								</li>
 							</ul>
 							Discard saved session information:
 							<input type="submit" class="button button-danger" id="settingsdiscard" name="settingsdiscard" value="Discard">
