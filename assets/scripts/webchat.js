@@ -1065,7 +1065,7 @@
 				//Remove them from the list
 				var user = this.findUser(username);
 				if (user !== -1) {
-					this.userlist.users.splice(user);
+					this.userlist.users.splice(user, 1);
 					this.displayUserlist();
 				}
 				break;
