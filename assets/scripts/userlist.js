@@ -1,4 +1,6 @@
 function Userlist() {
+	this.userbox = $("#userbox");
+
 	this.statuslist = [];
 	this.users = [];
 	this.update = [];
@@ -11,7 +13,7 @@ Userlist.prototype.findUser = function(username, useDisplay) {
 	//Lowercase
 	username = username.toLowerCase();
 
-	//Search through this.userlist for the user
+	//Search through this for the user
 	for (var i = this.users.length - 1; i >= 0; i--) {
 		if (this.users[i].username.toLowerCase() === username)
 			return i;
@@ -103,4 +105,45 @@ Userlist.prototype.colorUser = function(username, formatted, useAccess, access) 
 		formatted = "<span class=\"invertable" + (this.invertcolors ? " inverted" : "") + "\" original-color=\"" + lbcolor + "\" style=\"color:" + color + "\">" + formatted + "</span>";
 	}
 	return formatted;
+};
+
+Userlist.prototype.startUpdate = function() {
+	//Init update state
+	this.updating = true;
+	this.update = [];
+};
+Userlist.prototype.addUser = function(info) {
+	if (this.updating) {
+		this.update.push(info);
+	} else {
+		this.users.push(info);
+	}
+};
+Userlist.prototype.finishUpdate = function() {
+	//Transfer update state to the current userlist
+	this.updating = false;
+	this.users = this.update;
+	this.update = null;
+
+	//Sort userlist by access, then display name
+	this.users.sort(function (a, b) {
+		if (a.access != b.access) {
+			//Put guests at the end of the list, rather than the start
+			if (a.access === 3) return 1;
+			if (b.access === 3) return -1;
+			return b.access - a.access;
+		}
+		return a.display.localeCompare(b.display);
+	});
+};
+Userlist.prototype.display = function() {
+	//Clear the user list
+	this.userbox.empty();
+	this.userbox.append("<div>Userlist:</div>");
+
+	//Build the user list
+	for (var i = 0; i < this.users.length; i ++) {
+		var username = this.users[i].username;
+		this.userbox.append("<div>" + this.colorUser(username, this.formatUser(username, true, false), true) + "</div>");
+	}
 };

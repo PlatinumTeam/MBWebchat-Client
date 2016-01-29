@@ -26,8 +26,7 @@ if (array_key_exists("getkey", $_POST)) {
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
 	<!-- JQuery ... Inb4 Javascript snobs -->
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
 
 	<!-- Super cool icons by Font Awesome -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
