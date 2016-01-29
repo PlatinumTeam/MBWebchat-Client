@@ -376,7 +376,7 @@ Webchat.prototype.setShowA = function(show) {
 Webchat.prototype.detectMobile = function() {
 	this.mobile = ($("#mobiledetect").css("display") === "none");
 	if (this.mobile) {
-		this.textbox.focus(function() {this
+		this.textbox.focus(function() {
 			//Custom "keyboard open" classes for these controls because the userlist keeps getting in the way
 			webchat.chatframe.toggleClass("keyboard");
 			webchat.userframe.toggleClass("keyboard");
@@ -531,7 +531,7 @@ Webchat.prototype.logout = function() {
 	this.showLogin();
 	this.enableLogin(true);
 	this.chatbox.empty();
-	this.userbox.empty();
+	this.userlist.clear();
 	// alert("Disconnected from chat -- this generally means that your internet went out.\nIf your internet still seems to be happy, the chat server probably crashed. Refresh the page and see if webchat works again. If it doesn\'t, yell at HiGuy to turn the chat server back on.");
 };
 Webchat.prototype.send = function(data) {
@@ -1147,33 +1147,37 @@ Webchat.prototype.formatChat = function(text, access) {
 	if ((text.substring(0, 1) === ">") || text.substring(0, 4) === "&gt;") {
 		text = this.colorMessage(text, "greentext");
 	}
+
+	//Used many times, this shuts up PhpStorm's warnings
+	var replacement;
+
 	//Iterate backwards, building layers of <span>s as we go
 	for (var i = text.length - 1; i >= 0; i --) {
 		//Boldface text
 		if (text.substring(i, i + 3) === "[b]") {
 			//As per ingame, set bold and revert italic
-			var replacement = (access < 1 ? "" : "<span style=\"font-weight:bold;font-style:normal;\">");
+			replacement = (access < 1 ? "" : "<span style=\"font-weight:bold;font-style:normal;\">");
 			text = text.substring(0, i) + replacement + text.substring(i + 3) + "</span>";
 			continue;
 		}
 		//Italic text
 		if (text.substring(i, i + 3) === "[i]") {
 			//As per ingame, set italic and revert bold
-			var replacement = (access < 1 ? "" : "<span style=\"font-weight:normal;font-style:italic;\">");
+			replacement = (access < 1 ? "" : "<span style=\"font-weight:normal;font-style:italic;\">");
 			text = text.substring(0, i) + replacement + text.substring(i + 3) + "</span>";
 			continue;
 		}
 		//Bold+italic text
 		if (text.substring(i, i + 4) === "[bi]") {
 			//Both
-			var replacement = (access < 1 ? "" : "<span style=\"font-weight:bold;font-style:italic;\">");
+			replacement = (access < 1 ? "" : "<span style=\"font-weight:bold;font-style:italic;\">");
 			text = text.substring(0, i) + replacement + text.substring(i + 4) + "</span>";
 			continue;
 		}
 		//Normal (cleared) style
 		if (text.substring(i, i + 3) === "[c]") {
 			//Neither
-			var replacement = (access < 1 ? "" : "<span style=\"font-weight:normal;font-style:normal;\">");
+			replacement = (access < 1 ? "" : "<span style=\"font-weight:normal;font-style:normal;\">");
 			text = text.substring(0, i) + replacement + text.substring(i + 3) + "</span>";
 			continue;
 		}
@@ -1194,7 +1198,7 @@ Webchat.prototype.formatChat = function(text, access) {
 				color = this.colorlist[color];
 			}
 			//Insert the color
-			var replacement = (access < 1 ? "" : "<span class=\"color-user\" style=\"color:#" + color + ";\">");
+			replacement = (access < 1 ? "" : "<span class=\"color-user\" style=\"color:#" + color + ";\">");
 			text = text.substring(0, i) + replacement + text.substring(colorPos + 1) + "</span>";
 		}
 		//Normal (cleared) color

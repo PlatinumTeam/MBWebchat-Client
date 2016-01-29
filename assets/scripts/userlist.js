@@ -147,3 +147,8 @@ Userlist.prototype.display = function() {
 		this.userbox.append("<div>" + this.colorUser(username, this.formatUser(username, true, false), true) + "</div>");
 	}
 };
+Userlist.prototype.clear = function() {
+	this.users = [];
+	this.statuslist = [];
+	this.userbox.empty();
+};
