@@ -60,7 +60,7 @@ function getLoginJSONP($type) {
 		}
 	} else {
 		if ($type === "JS") {
-			return "webchat.enableLogin(true); webchat.showLogin(); webchat.setLoginStatus(\"No Saved Login Found\");";
+			return "webchat.enableLogin(true); webchat.setLoginStatus(\"No Saved Login Found\");";
 		} else if ($type === "JSON") {
 			return json_encode(array("success" => false));
 		}
