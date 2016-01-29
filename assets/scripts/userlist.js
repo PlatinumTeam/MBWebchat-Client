@@ -97,12 +97,12 @@ Userlist.prototype.colorUser = function(username, formatted, useAccess, access) 
 		var color = lbcolor;
 
 		//Invert their color if requested, stripping and appending a #
-		if (this.invertcolors)
-			color = "#" + this.invertColor(lbcolor.substring(1));
+		if (webchat.invertcolors)
+			color = "#" + invertColor(lbcolor.substring(1));
 
 		//Disaster of a line that creates <span> tags for usernames. Example output:
 		//<span class="invertable" original-color="#000000" style="color: #000000">Username</span>
-		formatted = "<span class=\"invertable" + (this.invertcolors ? " inverted" : "") + "\" original-color=\"" + lbcolor + "\" style=\"color:" + color + "\">" + formatted + "</span>";
+		formatted = "<span class=\"invertable" + (webchat.invertcolors ? " inverted" : "") + "\" original-color=\"" + lbcolor + "\" style=\"color:" + color + "\">" + formatted + "</span>";
 	}
 	return formatted;
 };

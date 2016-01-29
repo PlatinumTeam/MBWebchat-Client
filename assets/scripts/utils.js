@@ -64,4 +64,43 @@ formatTime = function(time) {
 upperFirst = function(str) {
 	return str[0].toUpperCase() + str.substring(1);
 };
+invertColor = function(color) {
+	var r = parseInt(color.substring(0, 2), 16);
+	var g = parseInt(color.substring(2, 4), 16);
+	var b = parseInt(color.substring(4, 6), 16);
 
+	//Super cool actually investigating this rather than just using a hue/saturation calculation
+	r = 255 - r;
+	g = 255 - g;
+	b = 255 - b;
+	var c = [r, g, b];
+
+	//Which color index is the largest or smallest?
+	var max   = r > g ? (r > b ? 0 : 2) : (g > b ? 1 : 2);
+	var min   = r < g ? (r < b ? 0 : 2) : (g < b ? 1 : 2);
+
+	//Which one did we not get?
+	var other = (max + min == 1 ? 2 : (max + min == 3 ? 0 : 1));
+
+	//Calculate c[other] (probably a cleaner way to do this)
+	c[other] = (c[max] - c[other]) + c[min];
+
+	//Save it because we can't just forget the value
+	var cmax = c[max];
+
+	//Swap the two of them
+	c[max] = c[min];
+	c[min] = cmax;
+
+	var add = Math.floor(((255 * 3) - (c[0] + c[1] + c[2])) / 6);
+
+	c[0] = (c[0] + add > 255 ? 255 : c[0] + add);
+	c[1] = (c[1] + add > 255 ? 255 : c[1] + add);
+	c[2] = (c[2] + add > 255 ? 255 : c[2] + add);
+
+	r = c[0].toString(16).paddingLeft("00");
+	g = c[1].toString(16).paddingLeft("00");
+	b = c[2].toString(16).paddingLeft("00");
+
+	return r + g + b;
+};
