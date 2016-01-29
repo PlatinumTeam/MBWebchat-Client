@@ -572,9 +572,7 @@ Webchat.prototype.sendChat = function(data, destination) {
 		return;
 	}
 
-	switch (command) {
-	case "/whisper":
-	case "/msg":
+	if (command === "/whisper" || command === "/msg") {
 		if (typeof(destination) === "undefined") {
 			destination = getWord(data, 1);
 		}
@@ -585,95 +583,6 @@ Webchat.prototype.sendChat = function(data, destination) {
 		this.lastwhisper = destination;
 
 		this.addChat(this.colorMessage("(To: " + htmlDecode(destDisplay) + "): ", "whisperfrom") + this.colorMessage(htmlDecode(message), "whispermsg"));
-		break;
-	case "/away":
-		//Away status
-		if (this.user.away) {
-			//Webchat
-			this.send("LOCATION 3");
-		} else {
-			//Away
-			this.send("LOCATION 9");
-		}
-		this.user.away = !this.user.away;
-		this.user.invisible = false;
-		return;
-	case "/invisible":
-		//Invisible mode, you're not supposed to know about this
-		if (this.user.access < 0) {
-			break;
-		}
-		if (this.user.invisible) {
-			//Webchat
-			this.send("LOCATION 3");
-		} else {
-			//Invisible
-			this.send("LOCATION -1");
-		}
-		this.user.invisible = !this.user.invisible;
-		this.user.away = false;
-		return;
-	case "/a":
-		if (data === "/a on") {
-			this.setShowA(true);
-		}
-		if (data === "/a off") {
-			this.setShowA(false);
-		}
-		break;
-	case "/who":
-		//Who is online?
-		if (getWordCount(data) === 1) {
-			//List all the users if they don't specify someone
-			this.addChat("There are " + this.userlist.users.length + " users online:");
-			for (var i = 0; i < this.userlist.users.length; i ++) {
-				var user = this.userlist.users[i];
-				this.addChat(this.formatAccess(user.access, true) + " " + this.userlist.colorUser(user.username, user.display + " (Username: " + user.username + ")", false));
-			}
-			return;
-		}
-
-		//Info for a user
-		var username = restWords(data);
-		var index = this.userlist.findUser(username, true);
-		if (index === -1) {
-			this.addChat(this.colorMessage("Invalid user: " + username, "notification"));
-			return;
-		}
-
-		var user = this.userlist.users[index];
-
-		//Get their location
-		var location = user.location;
-		//Strip the () from their location
-		var loctext  = this.userlist.statuslist[location].replace(/(\(|\))/g, "");
-
-		//Titles
-		var titles = "";
-		if (user.prefix !== "") {
-			titles = titles + "Prefix: " + user.prefix;
-		}
-		if (user.suffix !== "") {
-			//If they have a previous one, use commas
-			if (user.prefix !== "")
-				titles = titles + ", ";
-			titles = titles + "Suffix: " + user.suffix;
-		}
-		if (user.flair !== "") {
-			//If they have a previous one, use commas
-			if (user.prefix !== "" || user.suffix !== "")
-				titles = titles + ", ";
-			titles = titles + "Flair: <img src=\"https://marbleblast.com/webchat/assets/flair/" + user.flair + ".png\">";
-		}
-
-		//Print their user information
-		this.addChat("User information for " + user.display + ":");
-		this.addChat("Username: " + this.userlist.colorUser(user.username, user.username, false));
-		this.addChat("Access: " + this.formatAccess(user.access, true));
-		this.addChat("Location: " + loctext);
-		this.addChat("Titles: " + titles);
-
-		return;
 	}
 
 	if (this.onlya) {
