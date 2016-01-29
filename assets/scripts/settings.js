@@ -8,38 +8,9 @@ function Settings() {
 		prestigeup: true,
 		record: true
 	};
-}
-Settings.prototype.loadLocal = function() {
-	//Get all of localStorage's fields for ourselves
-	if (typeof(localStorage.settings) !== "undefined") {
-		try {
-			var localSettings = JSON.parse(localStorage.settings);
-			Object.keys(localSettings).forEach(function(key) {
-				settings.notifications[key] = localSettings[key];
-			});
-		} catch (e) {
 
-		}
-	}
-};
-Settings.prototype.saveLocal = function() {
-	//Put all of our fields into localStorage
-	localStorage.settings = JSON.stringify(this.notifications);
-};
-Settings.prototype.shouldShowNotification = function(type) {
-	//Show notifications if we don't know what they are, because we haven't explicitly disabled them
-	if (typeof(this.notifications[type]) === "undefined")
-		return true;
-	return this.notifications[type];
-};
-Settings.prototype.open = function() {
-	this.settingsmodal.fadeIn();
-};
-Settings.prototype.close = function() {
-	this.settingsmodal.fadeOut();
-	this.saveLocal();
-};
-Settings.prototype.setup = function() {
+	var settings = this;
+
 	this.loadLocal();
 
 	this.settingsbutton = $("#settingsbutton");
@@ -74,6 +45,35 @@ Settings.prototype.setup = function() {
 		webchat.logout();
 		webchat.setUser("", "", true);
 	});
+}
+Settings.prototype.loadLocal = function() {
+	//Get all of localStorage's fields for ourselves
+	if (typeof(localStorage.settings) !== "undefined") {
+		try {
+			var localSettings = JSON.parse(localStorage.settings);
+			Object.keys(localSettings).forEach(function(key) {
+				settings.notifications[key] = localSettings[key];
+			});
+		} catch (e) {
+
+		}
+	}
 };
-window.settings = new Settings();
-window.settings.setup();
+Settings.prototype.saveLocal = function() {
+	//Put all of our fields into localStorage
+	localStorage.settings = JSON.stringify(this.notifications);
+};
+Settings.prototype.shouldShowNotification = function(type) {
+	//Show notifications if we don't know what they are, because we haven't explicitly disabled them
+	if (typeof(this.notifications[type]) === "undefined")
+		return true;
+	return this.notifications[type];
+};
+Settings.prototype.open = function() {
+	this.settingsmodal.fadeIn();
+};
+Settings.prototype.close = function() {
+	this.settingsmodal.fadeOut();
+	this.saveLocal();
+};
+settings = new Settings();

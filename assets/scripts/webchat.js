@@ -41,6 +41,104 @@ function Webchat() {
 	this.lastmessage = null;
 
 	this.clientCommands = {};
+
+
+	//Set these fields so we can access them later
+	this.chatbox        = $("#chatbox");
+	this.textbox        = $("#textbox");
+	this.chatframe      = $("#chatframe");
+	this.userframe      = $("#userframe");
+	this.messageframe   = $("#messageframe");
+	this.messagebox     = $("#messagebox");
+	this.loginform      = $("#loginform");
+	this.loginusername  = $("#loginusername");
+	this.loginpassword  = $("#loginpassword");
+	this.loginkey       = $("#loginkey");
+	this.loginremember  = $("#loginremember");
+	this.loginsubmit    = $("#loginsubmit");
+	this.loginguest     = $("#loginguest");
+	this.loginstatus    = $("#loginstatus");
+	this.titletext      = $("#titletext");
+	this.titlestatus    = $("#titlestatus");
+	this.tosaccept      = $("#tosaccept");
+	this.tosdecline     = $("#tosdecline");
+	this.atoggle        = $("#atoggle");
+
+	this.setStatus("Disconnected");
+
+	//Bind enter key event
+	this.textbox.keydown(function(e) {
+		//Enter key pressed
+		if (e.keyCode == 13) {
+			webchat.sendChat(this.value);
+			this.value = "";
+		} else {
+			var completed = webchat.completeChat(this.value);
+			if (completed != this.value)
+				this.value = completed;
+		}
+	});
+	this.textbox.keyup(function(e) {
+		var completed = webchat.completeChat(this.value);
+		if (completed != this.value)
+			this.value = completed;
+	});
+	this.loginsubmit.click(function(e) {
+		webchat.formLogin();
+	});
+
+	//User/pass fields
+	this.loginusername.keydown(function(e) {
+		//Enter key pressed
+		if (e.keyCode == 13) {
+			webchat.formLogin();
+		}
+	});
+	this.loginpassword.keydown(function(e) {
+		//Enter key pressed
+		if (e.keyCode == 13) {
+			webchat.formLogin();
+		}
+	});
+
+	//Why would you ever log in as a guest to webchat?
+	this.loginguest.click(function(e) {
+		webchat.guestLogin();
+	});
+
+	//TOS buttons
+	this.tosaccept.click(function(e) {
+		//Send an accept and we're done
+		webchat.hideTOS();
+		webchat.send("ACCEPTTOS\n");
+		setTimeout(function() {
+			webchat.send("LOCATION 3\n");
+		}, 100);
+	});
+	this.tosdecline.click(function(e) {
+		//Log out if they decline
+		webchat.hideTOS();
+		webchat.logout();
+	});
+
+	//Custom mobile scripts that should only happen on phones
+	$(window).resize(function(e) {
+		webchat.detectMobile();
+	});
+	this.detectMobile();
+
+	if (typeof(console.setTitleBarText) !== "undefined") {
+		console.setTitleBarText(document.title);
+	}
+	$(document).unload(function(e) {
+		webchat.logout();
+	});
+	this.atoggle.click(function(e) {
+		webchat.setOnlyA(!webchat.onlya);
+	});
+
+	//Setup the title flashing
+	setInterval(this.flashTitle, 1000);
 }
 
 Webchat.prototype.addClientCommand = function(name, func) {
@@ -259,104 +357,6 @@ Webchat.prototype.guestLogin = function() {
 	this.user.guest = true;
 	this.connect();
 	this.setGuestMode(true);
-};
-Webchat.prototype.setup = function() {
-	//Set these fields so we can access them later
-	this.chatbox        = $("#chatbox");
-	this.textbox        = $("#textbox");
-	this.chatframe      = $("#chatframe");
-	this.userframe      = $("#userframe");
-	this.messageframe   = $("#messageframe");
-	this.messagebox     = $("#messagebox");
-	this.loginform      = $("#loginform");
-	this.loginusername  = $("#loginusername");
-	this.loginpassword  = $("#loginpassword");
-    this.loginkey       = $("#loginkey");
-    this.loginremember  = $("#loginremember");
-	this.loginsubmit    = $("#loginsubmit");
-	this.loginguest     = $("#loginguest");
-	this.loginstatus    = $("#loginstatus");
-	this.titletext      = $("#titletext");
-	this.titlestatus    = $("#titlestatus");
-	this.tosaccept      = $("#tosaccept");
-	this.tosdecline     = $("#tosdecline");
-	this.atoggle        = $("#atoggle");
-
-	this.setStatus("Disconnected");
-
-	//Bind enter key event
-	this.textbox.keydown(function(e) {
-		//Enter key pressed
-		if (e.keyCode == 13) {
-			webchat.sendChat(this.value);
-			this.value = "";
-		} else {
-			var completed = webchat.completeChat(this.value);
-			if (completed != this.value)
-				this.value = completed;
-		}
-	});
-	this.textbox.keyup(function(e) {
-		var completed = webchat.completeChat(this.value);
-		if (completed != this.value)
-			this.value = completed;
-	});
-	this.loginsubmit.click(function(e) {
-		webchat.formLogin();
-	});
-
-	//User/pass fields
-	this.loginusername.keydown(function(e) {
-		//Enter key pressed
-		if (e.keyCode == 13) {
-			webchat.formLogin();
-		}
-	});
-	this.loginpassword.keydown(function(e) {
-		//Enter key pressed
-		if (e.keyCode == 13) {
-			webchat.formLogin();
-		}
-	});
-
-	//Why would you ever log in as a guest to webchat?
-	this.loginguest.click(function(e) {
-		webchat.guestLogin();
-	});
-
-	//TOS buttons
-	this.tosaccept.click(function(e) {
-		//Send an accept and we're done
-		webchat.hideTOS();
-		webchat.send("ACCEPTTOS\n");
-		setTimeout(function() {
-			webchat.send("LOCATION 3\n");
-		}, 100);
-	});
-	this.tosdecline.click(function(e) {
-		//Log out if they decline
-		webchat.hideTOS();
-		webchat.logout();
-	});
-
-	//Custom mobile scripts that should only happen on phones
-	$(window).resize(function(e) {
-		webchat.detectMobile();
-	});
-	this.detectMobile();
-
-	if (typeof(console.setTitleBarText) !== "undefined") {
-		console.setTitleBarText(document.title);
-	}
-	$(document).unload(function(e) {
-		webchat.logout();
-	});
-	this.atoggle.click(function(e) {
-		webchat.setOnlyA(!webchat.onlya);
-	});
-
-	//Setup the title flashing
-	setInterval(this.flashTitle, 1000);
 };
 Webchat.prototype.setOnlyA = function(only) {
 	this.onlya = only;
@@ -1129,8 +1129,7 @@ Webchat.prototype.getSlapMessage = function(from, to) {
 	return upperFirst(from) + " slapped " + to + " with a large fish!";
 };
 
-window.webchat = new Webchat();
+webchat = new Webchat();
 
-webchat.setup();
 webchat.showLogin();
 webchat.enableLogin(false);
