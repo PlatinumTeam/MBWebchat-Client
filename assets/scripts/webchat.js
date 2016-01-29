@@ -28,13 +28,8 @@
 			welcome: "",
 			help: {}
 		},
-		userlist: {
-			users: [],
-			update: [],
-			updating: false
-		},
+		userlist: new Userlist(),
 		grouplist: [],
-		statuslist: [],
 		colorlist: [],
 		skins: [],
 		lastwhisper: "",
@@ -575,7 +570,7 @@
 					destination = getWord(data, 1);
 
 					//And display a (To: ) for their whisper
-					var destDisplay = this.formatUser(destination, false, false)
+					var destDisplay = this.userlist.formatUser(destination, false, false)
 					var message = getWords(data, 2);
 
 					this.lastwhisper = destination;
@@ -700,14 +695,14 @@
 					this.addChat("There are " + this.userlist.users.length + " users online:");
 					for (var i = 0; i < this.userlist.users.length; i ++) {
 						var user = this.userlist.users[i];
-						this.addChat(this.formatAccess(user.access, true) + " " + this.colorUser(user.username, user.display + " (Username: " + user.username + ")", false));
+						this.addChat(this.formatAccess(user.access, true) + " " + this.userlist.colorUser(user.username, user.display + " (Username: " + user.username + ")", false));
 					}
 					return;
 				}
 				
 				//Info for a user
 				var username = restWords(data);
-				var index = this.findUser(username, true);
+				var index = this.userlist.findUser(username, true);
 				if (index === -1) {
 					this.addChat(this.colorMessage("Invalid user: " + username, "notification"));
 					return;
@@ -718,7 +713,7 @@
 				//Get their location
 				var location = user.location;
 				//Strip the () from their location
-				var loctext  = this.statuslist[location].replace(/(\(|\))/g, "");
+				var loctext  = this.userlist.statuslist[location].replace(/(\(|\))/g, "");
 
 				//Titles
 				var titles = "";
@@ -740,7 +735,7 @@
 
 				//Print their user information
 				this.addChat("User information for " + user.display + ":");
-				this.addChat("Username: " + this.colorUser(user.username, user.username, false));
+				this.addChat("Username: " + this.userlist.colorUser(user.username, user.username, false));
 				this.addChat("Access: " + this.formatAccess(user.access, true));
 				this.addChat("Location: " + loctext);
 				this.addChat("Titles: " + titles);
@@ -966,7 +961,7 @@
 					message = getWords(message, 1);
 
 					//Strip off everything from their user
-					display = this.formatUser(username, false, false, display);
+					display = this.userlist.formatUser(username, false, false, display);
 
 					//Add message
 					this.addChat(this.colorMessage(display + " " + message, "me"));
@@ -982,7 +977,7 @@
 				}
 			}
 			//Format their username
-			var formatted = this.colorUser(username, this.formatUser(username, true, true, display) + ": ", false, access);
+			var formatted = this.userlist.colorUser(username, this.userlist.formatUser(username, true, true, display) + ": ", false, access);
 
 			//And format their chat, too
 			this.addChat(formatted + this.formatChat(message, access));
@@ -1063,14 +1058,14 @@
 				if (settings.shouldShowNotification("login")) //Same setting as login notifs
 					this.addChat(this.colorMessage(display + " has logged out!", "notification"));
 				//Remove them from the list
-				var user = this.findUser(username);
+				var user = this.userlist.findUser(username);
 				if (user !== -1) {
 					this.userlist.users.splice(user, 1);
 					this.displayUserlist();
 				}
 				break;
 			case "setlocation":
-				this.userlist.users[this.findUser(username)].location = parseInt(message);
+				this.userlist.users[this.userlist.findUser(username)].location = parseInt(message);
 				this.displayUserlist();
 				break;
 
@@ -1093,7 +1088,7 @@
 				break;
 			case "prestigeup":
 				if (settings.shouldShowNotification(type))
-					this.addChat(this.colorMessage(display + " has gained a presige rank (" + htmlDecode(decodeName(message)) + ")!", "notification"));
+					this.addChat(this.colorMessage(display + " has gained a prestige rank (" + htmlDecode(decodeName(message)) + ")!", "notification"));
 				break;
 
 			//World records
@@ -1110,7 +1105,7 @@
 			//STATUS <status> <display ...>
 			var status  = parseInt(getWord(text, 0));
 			var display =          getWords(text, 1);
-			this.statuslist[status] = display;
+			this.userlist.statuslist[status] = display;
 		},
 		interpretColor: function(text) {
 			//COLOR <id> <color>
@@ -1147,105 +1142,6 @@
 				this.addChat(this.colorMessage(display + " has left the group.", "notification"));
 				break;
 			}
-		},
-		findUser: function(username, useDisplay) {
-			if (typeof(useDisplay) === "undefined") useDisplay = false;
-
-			//Lowercase
-			username = username.toLowerCase();
-
-			//Search through this.userlist for the user
-			for (var i = this.userlist.users.length - 1; i >= 0; i--) {
-				if (this.userlist.users[i].username.toLowerCase() === username)
-					return i;
-				if (useDisplay && this.userlist.users[i].display.toLowerCase() === username)
-					return i;
-			}
-			return -1;
-		},
-		formatUser: function(username, location, titles, display) {
-			//Default values
-			if (typeof(location) === "undefined") location = true;
-			if (typeof(titles)   === "undefined") titles   = true;
-			if (typeof(display)  === "undefined") display  = username;
-
-			//If all else fails, use their display/username
-			var formatted = display;
-
-			//Find them in the userlist
-			var index = this.findUser(username);
-
-			//We can't apply titles/location if they're not online, those only exist in the userlist
-			if (index != -1) {
-				//They are online here, get their info
-
-				//Start with the updated display name
-				display = this.userlist.users[index].display;
-				formatted = display;
-
-				//Add titles if requested
-				if (titles) {
-					var flair  = this.userlist.users[index].flair;
-					var prefix = this.userlist.users[index].prefix;
-					var suffix = this.userlist.users[index].suffix;
-
-					//Don't add spaces if the titles are blank
-					if (prefix !== "") {
-						formatted = prefix + " " + formatted;
-					}
-					if (suffix !== "") {
-						formatted = formatted + " " + suffix;
-					}
-					if (flair !== "") {
-						//Flair images are in assets/flair/
-						formatted = "<img src=\"https://marbleblast.com/webchat/assets/flair/" + flair + ".png\"> " + formatted;
-					}
-				}
-
-				//Add (Location) if requested
-				if (location) {
-					var location = this.userlist.users[index].location;
-					var loctext  = this.statuslist[location];
-
-					//Don't add a space if the location is blank
-					if (loctext !== "") {
-						formatted = formatted + " " + loctext;
-					}
-				}
-			}
-			return formatted;
-		},
-		colorUser: function(username, formatted, useAccess, access) {
-			//Find them in the userlist
-			var index = this.findUser(username);
-
-			//Add colors if requested
-			if (index == -1) {
-				useAccess = true;
-			} else {
-				access = this.userlist.users[index].access;
-			}
-
-			if (useAccess) {
-				//As long as we have their access, we can do this
-				if (typeof(access) !== "undefined") {
-					//Default colors as per spec
-					formatted = "<span class=\"color-access-" + access + "\">" + formatted + "</span>";
-				}
-			} else {
-				//If they're not online, then this will hit the top section instead
-				var lbcolor = this.userlist.users[index].color;
-				var color = lbcolor;
-
-				//Invert their color if requested, stripping and appending a #
-				if (this.invertcolors)
-					color = "#" + this.invertColor(lbcolor.substring(1));
-
-				//Disaster of a line that creates <span> tags for usernames. Example output:
-				//<span class="invertable" original-color="#000000" style="color: #000000">Username</span>
-				formatted = "<span class=\"invertable" + (this.invertcolors ? " inverted" : "") + "\" original-color=\"" + lbcolor + "\" style=\"color:" + color + "\">" + formatted + "</span>";
-			}
-			return formatted;
 		},
 		colorMessage: function(text, colortype) {
 			//Make sure we have that color
@@ -1337,7 +1233,7 @@
 			//Build the user list
 			for (var i = 0; i < this.userlist.users.length; i ++) {
 				var username = this.userlist.users[i].username;
-				this.userbox.append("<div>" + this.colorUser(username, this.formatUser(username, true, false), true) + "</div>");
+				this.userbox.append("<div>" + this.userlist.colorUser(username, this.userlist.formatUser(username, true, false), true) + "</div>");
 			}
 		},
 		error: function(data) {
@@ -1432,8 +1328,8 @@
 			if (self && slap == 7) slap ++;
 
 			//Use their display name
-			to = this.formatUser(to, false, false);
-			from = this.formatUser(from, false, false);
+			to = this.userlist.formatUser(to, false, false);
+			from = this.userlist.formatUser(from, false, false);
 
 			//A wonderful collection of slap messages
 			switch (slap) {
@@ -1460,5 +1356,6 @@
 	window.webchat = webchat;
 
 	webchat.setup();
+	webchat.showLogin();
 	webchat.enableLogin(false);
 })(jQuery.noConflict());
