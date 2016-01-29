@@ -585,6 +585,10 @@ Webchat.prototype.sendChat = function(data, destination) {
 		this.addChat(this.colorMessage("(To: " + htmlDecode(destDisplay) + "): ", "whisperfrom") + this.colorMessage(htmlDecode(message), "whispermsg"));
 	}
 
+	if (typeof(destination) === "undefined") {
+		destination = "";
+	}
+
 	if (this.onlya) {
 		data = "/a " + data;
 	}
