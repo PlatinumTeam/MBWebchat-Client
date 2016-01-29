@@ -202,6 +202,7 @@ if (array_key_exists("getkey", $_POST)) {
 </div>
 <!-- Scripts come at the end so as not to keep the DOM waiting. -->
 <script type="text/javascript" src="assets/scripts/utils.js"></script>
+<script type="text/javascript" src="assets/scripts/message.js"></script>
 <script type="text/javascript" src="assets/scripts/userlist.js"></script>
 <script type="text/javascript" src="assets/scripts/settings.js"></script>
 <script type="text/javascript" src="assets/scripts/webchat.js"></script>

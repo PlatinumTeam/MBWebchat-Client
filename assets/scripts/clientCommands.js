@@ -1,5 +1,5 @@
-webchat.addClientCommand("/skin", function(data, destination) {
-	if (getWordCount(data) === 1) {
+webchat.addClientCommand("/skin", function(message) {
+	if (getWordCount(message.data) === 1) {
 		//Called with no args, just list skins
 		var skinList = "";
 		for (var i = 0; i < this.skins.length; i++) {
@@ -12,10 +12,11 @@ webchat.addClientCommand("/skin", function(data, destination) {
 
 		//Give them their message
 		this.addChat(this.colorMessage("Current Skin List: " + skinList, "notification"));
-		return true;
+		message.hold = true;
+		return;
 	}
 	//Set your skin to the given skin
-	var skin = getWord(data, 1);
+	var skin = getWord(message.data, 1);
 
 	//Make sure it exists
 	if (this.skins.indexOf(skin) !== -1) {
@@ -28,42 +29,44 @@ webchat.addClientCommand("/skin", function(data, destination) {
 
 		//And actually set the skin
 		this.setSkin(skin);
-		return true;
+		message.hold = true;
 	} else {
 		//If the skin doesn't exist, let them know
 		this.addChat(this.colorMessage("Invalid Skin: " + htmlDecode(skin), "notification"));
-		return true;
+		message.hold = true;
 	}
 });
 
-webchat.addClientCommand("/invert", function(data, destination) {
+webchat.addClientCommand("/invert", function(message) {
 	//Kalle said he wanted the ability to disable inverted name colors. Not sure why
 	// as the chat becomes unreadable, but this is here just for him <3
 
 	//Usage
-	if (getWordCount(data) === 1) {
+	if (getWordCount(message.data) === 1) {
 		//Give them their message
 		this.addChat(this.colorMessage("Usage: /invert on|off", "notification"));
-		return true;
+		message.hold = true;
+		return;
 	}
 	//What did they choose
-	var sub = getWord(data, 1);
+	var sub = getWord(message.data, 1);
 
 	//Stupid simple set
 	this.setInvertColors(sub === "on");
-	return true;
+	message.hold = true;
 });
 
-webchat.addClientCommand("/help", function(data, destination) {
+webchat.addClientCommand("/help", function(message) {
 	//Help messages are client sided
 	//Help overview
-	if (getWordCount(data) === 1) {
+	if (getWordCount(message.data) === 1) {
 		this.addChat(this.colorMessage(this.info.help["INFO"], "help"));
-		return true;
+		message.hold = true;
+		return;
 	}
 
 	//Sections are all capital
-	var section = getWord(data, 1).toUpperCase();
+	var section = getWord(message.data, 1).toUpperCase();
 
 	//Make sure the section exists
 	if (typeof(this.info.help[section]) !== "undefined") {
@@ -71,12 +74,12 @@ webchat.addClientCommand("/help", function(data, destination) {
 		this.addChat(this.colorMessage(this.info.help[section], "help"))
 	} else {
 		//No such section
-		this.addChat(this.colorMessage("Unknown help page \"" + htmlDecode(getWord(data, 1)) + "\".", "help"));
+		this.addChat(this.colorMessage("Unknown help page \"" + htmlDecode(getWord(message.data, 1)) + "\".", "help"));
 	}
-	return true;
+	message.hold = true;
 });
 
-webchat.addClientCommand("/away", function(data, destination) {
+webchat.addClientCommand("/away", function() {
 	//Away status
 	if (this.user.away) {
 		//Webchat
@@ -87,13 +90,13 @@ webchat.addClientCommand("/away", function(data, destination) {
 	}
 	this.user.away = !this.user.away;
 	this.user.invisible = false;
-	return true;
+	message.hold = true;
 });
 
-webchat.addClientCommand("/invisible", function(data, destination) {
+webchat.addClientCommand("/invisible", function() {
 	//Invisible mode, you're not supposed to know about this
 	if (this.user.access < 0) {
-		return false;
+		return;
 	}
 	if (this.user.invisible) {
 		//Webchat
@@ -104,37 +107,38 @@ webchat.addClientCommand("/invisible", function(data, destination) {
 	}
 	this.user.invisible = !this.user.invisible;
 	this.user.away = false;
-	return true;
+	message.hold = true;
 });
 
-webchat.addClientCommand("/a", function(data, destination) {
-	if (data === "/a on") {
+webchat.addClientCommand("/a", function(message) {
+	if (message.data === "/a on") {
 		this.setShowA(true);
 	}
-	if (data === "/a off") {
+	if (message.data === "/a off") {
 		this.setShowA(false);
 	}
-	return false;
 });
 
-webchat.addClientCommand("/who", function(data, destination) {
+webchat.addClientCommand("/who", function(message) {
 	//Who is online?
-	if (getWordCount(data) === 1) {
+	if (getWordCount(message.data) === 1) {
 		//List all the users if they don't specify someone
 		this.addChat("There are " + this.userlist.users.length + " users online:");
 		for (var i = 0; i < this.userlist.users.length; i ++) {
 			var user = this.userlist.users[i];
 			this.addChat(this.formatAccess(user.access, true) + " " + this.userlist.colorUser(user.username, user.display + " (Username: " + user.username + ")", false));
 		}
-		return true;
+		message.hold = true;
+		return;
 	}
 
 	//Info for a user
-	var username = restWords(data);
+	var username = restWords(message.data);
 	var index = this.userlist.findUser(username, true);
 	if (index === -1) {
 		this.addChat(this.colorMessage("Invalid user: " + username, "notification"));
-		return true;
+		message.hold = true;
+		return;
 	}
 
 	var user = this.userlist.users[index];
@@ -169,5 +173,5 @@ webchat.addClientCommand("/who", function(data, destination) {
 	this.addChat("Location: " + loctext);
 	this.addChat("Titles: " + titles);
 
-	return true;
+	message.hold = true;
 });

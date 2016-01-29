@@ -545,16 +545,6 @@ Webchat.prototype.send = function(data) {
 	this.socket.send(data + "\n");
 };
 Webchat.prototype.sendChat = function(data, destination) {
-	//Check for @@ and @@@
-	if (data.substring(0, 3) === "@@@") {
-		destination = this.lastwhisper;
-		data = "/whisper " + this.lastwhisper + " " + data.substring(3);
-	}
-	if (data.substring(0, 2) === "@@") {
-		destination = firstWord(data).substring(2);
-		data = "/whisper " + destination + " " + restWords(data);
-	}
-
 	//If you're away, and you send a chat, you're not away anymore
 	if (this.user.away) {
 		this.user.away = false;
@@ -565,39 +555,28 @@ Webchat.prototype.sendChat = function(data, destination) {
 		return;
 	}
 
+	var message = new Message(this.user.username, destination, data);
+	message.complete();
+
 	//Try to find their destination if they /whisper
-	var command = firstWord(data);
+	var command = message.getCommand();
 
-	if (typeof(this.clientCommands[command]) !== "undefined" && this.clientCommands[command](data, destination)) {
+	if (typeof(this.clientCommands[command]) !== "undefined") {
+		this.clientCommands[command](message);
+	}
+
+	if (message.hold)
 		return;
-	}
-
-	if (command === "/whisper" || command === "/msg") {
-		if (typeof(destination) === "undefined") {
-			destination = getWord(data, 1);
-		}
-		//And display a (To: ) for their whisper
-		var destDisplay = this.userlist.formatUser(destination, false, false);
-		var message = getWords(data, 2);
-
-		this.lastwhisper = destination;
-
-		this.addChat(this.colorMessage("(To: " + htmlDecode(destDisplay) + "): ", "whisperfrom") + this.colorMessage(htmlDecode(message), "whispermsg"));
-	}
-
-	if (typeof(destination) === "undefined") {
-		destination = "";
-	}
 
 	if (this.onlya) {
-		data = "/a " + data;
+		message.data = "/a " + message.data;
 	}
 
 	if (this.grouplist.length) {
 		var group = this.grouplist[0];
 		this.send("CHAT " + destination + " " + group + " " + data);
 	} else {
-		this.send("CHAT " + destination + " " + data);
+		this.send(message.getLine());
 	}
 };
 Webchat.prototype.completeChat = function(chat) {
