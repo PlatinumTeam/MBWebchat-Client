@@ -64,6 +64,7 @@ function Webchat() {
 	this.tosaccept      = $("#tosaccept");
 	this.tosdecline     = $("#tosdecline");
 	this.atoggle        = $("#atoggle");
+	this.settingsbutton = $("#settingsbutton");
 
 	this.setStatus("Disconnected");
 
@@ -209,9 +210,9 @@ Webchat.prototype.setSkin = function(skin) {
 Webchat.prototype.setWindowTitle = function(text, mobiletext) {
 	this.mobile = ($("#mobiledetect").css("display") === "none");
 	if (this.mobile) {
-		document.title = text;
-	} else {
 		document.title = mobiletext;
+	} else {
+		document.title = text;
 	}
 	//Native methods
 	if (typeof(console.setTitleBarText) !== "undefined") {
@@ -613,6 +614,10 @@ Webchat.prototype.parse = function(line) {
 			this.logout();
 			this.setLoginStatus("Invalid Access Key.");
 		}
+		if (data === "BANNED") {
+			this.logout();
+			this.setLoginStatus("No Access: You are banned.");
+		}
 		break;
 	case "PING":
 		//PING <pingdata>
@@ -928,6 +933,13 @@ Webchat.prototype.interpretNotify = function(text) {
 		//Level is formatted, we need to parse time though
 		if (settings.shouldShowNotification(type))
 			this.addChat(this.colorMessage(display + " has just achieved a world record on \"" + htmlDecode(decodeName(level)) + "\" of " + formatTime(time), "record"));
+		break;
+	case "recordscore":
+		var level = getWord(message, 0);
+		var score  = getWord(message, 1);
+		//Level is formatted, score is just a number
+		if (settings.shouldShowNotification("record")) //Same setting as WR notifs
+			this.addChat(this.colorMessage(display + " has just achieved a world record on \"" + htmlDecode(decodeName(level)) + "\" of " + score, "record"));
 		break;
 	}
 };
