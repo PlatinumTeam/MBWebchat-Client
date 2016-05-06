@@ -364,8 +364,16 @@ Webchat.prototype.setOnlyA = function(only) {
 
 	if (this.onlya) {
 		this.atoggle.addClass("active");
+		this.atoggle.addClass("button-danger");
+		this.messageframe.addClass("onlya");
+		this.settingsbutton.addClass("button-danger");
+		this.settingsbutton.removeClass("button");
 	} else {
 		this.atoggle.removeClass("active");
+		this.atoggle.removeClass("button-danger");
+		this.messageframe.removeClass("onlya");
+		this.settingsbutton.removeClass("button-danger");
+		this.settingsbutton.addClass("button");
 	}
 	this.textbox.focus();
 };
@@ -802,6 +810,17 @@ Webchat.prototype.interpretChat = function(text) {
 			//The actual message is generated here
 			message = this.getSlapMessage(username, user);
 			this.addChat(message);
+			return;
+		case "/a":
+			// /a stuff
+
+			//Format their username
+			var formatted = this.userlist.colorUser(username, this.userlist.formatUser(username, true, true, display) + ": ", false, access);
+
+			//Strip off "/a "
+			message = message.substring(3);
+
+			this.addChat(this.colorMessage("[Adult] ", "a") + formatted + this.formatChat(message, access));
 			return;
 		}
 	}

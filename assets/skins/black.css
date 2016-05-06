@@ -7,6 +7,12 @@ body {
 		background-color: #000;
 		border: 1px solid #000;
 	}
+	#messageframe.onlya #messagebox {
+		background-color: #F00;
+	}
+	#messageframe.onlya #textbox {
+		background-color: #900;
+	}
 	.dialogmodal {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
@@ -30,8 +36,8 @@ body {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.dialogbox {
-		background-color: #eee;
-		border: 1px solid #ccc;
+		background-color: #222;
+		border: 1px solid #000;
 	}
 	input.form[type="text"], input.form[type="password"] {
 		border: 1px solid #ccc;
@@ -113,7 +119,7 @@ input.form[disabled="disabled"] {
 	background: -o-linear-gradient(#69f, #03f);
 	background: linear-gradient(#69f, #03f);
 }
-.button-active:active {
+.button-active:active, .button-active.active {
 	color: #fff;
 	background-color: #06f;
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#06f), to(#33f));
@@ -154,7 +160,7 @@ input.form[disabled="disabled"] {
 	background: -o-linear-gradient(#f52, #e00);
 	background: linear-gradient(#f52, #e00);
 }
-.button-danger:active {
+.button-danger:active, .button-danger.active {
 	color: #fff;
 	background-color: #c00;
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#c00), to(#a30));
@@ -195,7 +201,7 @@ input.form[disabled="disabled"] {
 	background: -o-linear-gradient(#5c2, #0a0);
 	background: linear-gradient(#5c2, #0a0);
 }
-.button-success:active {
+.button-success:active, .button-success.active {
 	color: #fff;
 	background-color: #0c0;
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#080), to(#360));
@@ -232,6 +238,7 @@ input.form[disabled="disabled"] {
 .color-record       { color: #ccffcc; }
 .color-tasks        { color: #99ccff; }
 .color-greentext    { color: #89cc44; }
+.color-a            { color: #ff9999; }
 .color-access--3    { color: #ffffff; }
 .color-access-0     { color: #ffffff; }
 .color-access-1     { color: #6666ff; }
