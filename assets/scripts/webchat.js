@@ -41,8 +41,8 @@ function Webchat() {
 	this.newmessages = 0;
 	this.flashOn = false;
 
-	this.clientCommands = {};
-
+	this.clientChatCommands = {};
+	this.serverChatCommands = {};
 
 	//Set these fields so we can access them later
 	this.chatbox        = $("#chatbox");
@@ -141,7 +141,11 @@ function Webchat() {
 }
 
 Webchat.prototype.addClientChatCommand = function(name, func) {
-	this.clientCommands[name] = func.bind(this);
+	this.clientChatCommands[name] = func.bind(this);
+};
+
+Webchat.prototype.addServerChatCommand = function(name, func) {
+	this.serverChatCommands[name] = func.bind(this);
 };
 
 Webchat.prototype.setInvertColors = function(invert) {
@@ -565,14 +569,14 @@ Webchat.prototype.sendChat = function(data, destination) {
 		return;
 	}
 
-	var message = new Message(this.user.username, destination, data);
+	var message = new Message(this.user.username, this.user.display, destination, data, this.user.access);
 	message.complete();
 
 	//Try to find their destination if they /whisper
 	var command = message.getCommand();
 
-	if (typeof(this.clientCommands[command]) !== "undefined") {
-		this.clientCommands[command](message);
+	if (typeof(this.clientChatCommands[command]) !== "undefined") {
+		this.clientChatCommands[command](message);
 	}
 
 	if (message.hold)
@@ -757,83 +761,38 @@ Webchat.prototype.interpretChat = function(text) {
 	var destination = decodeName(getWord(text, 2));
 	var access      =   parseInt(getWord(text, 3));
 
-	var message;
+	var text;
 
 	//TODO: Remove backwards compatibility
 	if (this.grouplist.length) {
 		var group = decodeName(getWord(text, 4));
-		message   = htmlDecode(getWords(text, 5));
+		text      = htmlDecode(getWords(text, 5));
 	} else {
-		message   = htmlDecode(getWords(text, 4));
+		text      = htmlDecode(getWords(text, 4));
 	}
 
+	var message = new Message(username, display, destination, text, access);
+	message.sent = true;
+	message.complete();
 
-	//Don't show messages not addressed to ourselves
-	if (destination !== "" && destination.toLowerCase() !== this.user.username.toLowerCase()) {
+	//We may not want to show this if it's not ours
+	if (message.hold)
 		return;
+
+	//Try to find their destination if they /whisper
+	var command = message.getCommand();
+
+	if (typeof(this.serverChatCommands[command]) !== "undefined") {
+		this.serverChatCommands[command](message);
 	}
+
+	if (message.hold)
+		return;
 
 	this.newmessages ++;
 	this.flashTitle();
 
-	//They sent a chat command
-	if (message.substring(0, 1) === "/") {
-		var command = firstWord(message);
-		switch (command) {
-		case "/whisper":
-		case "/msg":
-			//Private message
-			var recipient = getWord(message, 1);
-
-			//Not to us, why did we get it?
-			if (recipient.toLowerCase() !== this.user.username.toLowerCase()) {
-				return;
-			}
-
-			//Strip /whisper username
-			message = getWords(message, 2);
-
-			this.lastwhisper = username;
-
-			//Add their message
-			this.addChat(this.colorMessage("(From: " + htmlDecode(display) + "): ", "whisperfrom") + this.colorMessage(htmlDecode(message), "whispermsg"));
-			return;
-		case "/me":
-			// /me stuff => Username stuff
-			message = getWords(message, 1);
-
-			//Strip off everything from their user
-			display = this.userlist.formatUser(username, false, false, display);
-
-			//Add message
-			this.addChat(this.colorMessage(display + " " + message, "me"));
-			return;
-		case "/slap":
-			// /slap user
-			var user = getWords(message, 1);
-
-			//The actual message is generated here
-			message = this.getSlapMessage(username, user);
-			this.addChat(message);
-			return;
-		case "/a":
-			// /a stuff
-
-			//Format their username
-			var formatted = this.userlist.colorUser(username, this.userlist.formatUser(username, true, true, display) + ": ", false, access);
-
-			//Strip off "/a "
-			message = message.substring(3);
-
-			this.addChat(this.colorMessage("[Adult] ", "a") + formatted + this.formatChat(message, access));
-			return;
-		}
-	}
-	//Format their username
-	var formatted = this.userlist.colorUser(username, this.userlist.formatUser(username, true, true, display) + ": ", false, access);
-
-	//And format their chat, too
-	this.addChat(formatted + this.formatChat(message, access));
+	message.display();
 };
 Webchat.prototype.interpretUser = function(text) {
 	//USER <subcommand> <params ...>
