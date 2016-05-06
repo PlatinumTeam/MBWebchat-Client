@@ -3,7 +3,7 @@ webchat.addServerChatCommand("/me", function(message) {
 	var data = getWords(message.data, 1);
 
 	//Strip off everything from their user
-	var display = this.userlist.formatUser(message.user.username, false, false, message.user.display);
+	var display = message.user.getFormattedDisplay(false, false, false, false);
 
 	//Add message
 	this.addChat(this.colorMessage(display + " " + data, "me"));
@@ -26,7 +26,7 @@ webchat.addServerChatCommand("/a", function(message) {
 	// /a stuff
 
 	//Format their username
-	var formatted = this.userlist.colorUser(message.user.username, this.userlist.formatUser(message.user.username, true, true, message.user.display) + ": ", false, access);
+	var formatted = message.user.getFormattedDisplay(true, false, true, true);
 
 	//Strip off "/a "
 	var data = message.data.substring(3);

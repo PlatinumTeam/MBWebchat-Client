@@ -143,8 +143,8 @@ Userlist.prototype.display = function() {
 
 	//Build the user list
 	for (var i = 0; i < this.users.length; i ++) {
-		var username = this.users[i].username;
-		this.userbox.append("<div>" + this.colorUser(username, this.formatUser(username, true, false), true) + "</div>");
+		var user = this.users[i];
+		this.userbox.append("<div>" + user.getFormattedDisplay(true, true, true, false) + "</div>");
 	}
 };
 Userlist.prototype.clear = function() {

@@ -126,7 +126,7 @@ webchat.addClientChatCommand("/who", function(message) {
 		this.addChat("There are " + this.userlist.users.length + " users online:");
 		for (var i = 0; i < this.userlist.users.length; i ++) {
 			var user = this.userlist.users[i];
-			this.addChat(this.formatAccess(user.access, true) + " " + this.userlist.colorUser(user.username, user.display + " (Username: " + user.username + ")", false));
+			this.addChat(user.getFormattedAccess(true) + " " + this.userlist.colorUser(user.username, user.display + " (Username: " + user.username + ")", false));
 		}
 		message.hold = true;
 		return;
@@ -141,6 +141,7 @@ webchat.addClientChatCommand("/who", function(message) {
 		return;
 	}
 
+	//@var User user
 	var user = this.userlist.users[index];
 
 	//Get their location
@@ -168,7 +169,7 @@ webchat.addClientChatCommand("/who", function(message) {
 
 	//Print their user information
 	this.addChat("User information for " + user.display + ":");
-	this.addChat("Username: " + this.userlist.colorUser(user.username, user.username, false));
+	this.addChat("Username: " + user.getFormattedUsername(true, false, false, false));
 	this.addChat("Access: " + this.formatAccess(user.access, true));
 	this.addChat("Location: " + loctext);
 	this.addChat("Titles: " + titles);
