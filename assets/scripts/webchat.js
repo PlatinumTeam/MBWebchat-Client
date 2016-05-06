@@ -140,7 +140,7 @@ function Webchat() {
 	});
 }
 
-Webchat.prototype.addClientCommand = function(name, func) {
+Webchat.prototype.addClientChatCommand = function(name, func) {
 	this.clientCommands[name] = func.bind(this);
 };
 

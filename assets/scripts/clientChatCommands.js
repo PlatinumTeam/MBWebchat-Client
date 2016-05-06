@@ -1,4 +1,4 @@
-webchat.addClientCommand("/skin", function(message) {
+webchat.addClientChatCommand("/skin", function(message) {
 	if (getWordCount(message.data) === 1) {
 		//Called with no args, just list skins
 		var skinList = "";
@@ -37,7 +37,7 @@ webchat.addClientCommand("/skin", function(message) {
 	}
 });
 
-webchat.addClientCommand("/invert", function(message) {
+webchat.addClientChatCommand("/invert", function(message) {
 	//Kalle said he wanted the ability to disable inverted name colors. Not sure why
 	// as the chat becomes unreadable, but this is here just for him <3
 
@@ -56,7 +56,7 @@ webchat.addClientCommand("/invert", function(message) {
 	message.hold = true;
 });
 
-webchat.addClientCommand("/help", function(message) {
+webchat.addClientChatCommand("/help", function(message) {
 	//Help messages are client sided
 	//Help overview
 	if (getWordCount(message.data) === 1) {
@@ -79,7 +79,7 @@ webchat.addClientCommand("/help", function(message) {
 	message.hold = true;
 });
 
-webchat.addClientCommand("/away", function() {
+webchat.addClientChatCommand("/away", function() {
 	//Away status
 	if (this.user.away) {
 		//Webchat
@@ -93,7 +93,7 @@ webchat.addClientCommand("/away", function() {
 	message.hold = true;
 });
 
-webchat.addClientCommand("/invisible", function() {
+webchat.addClientChatCommand("/invisible", function() {
 	//Invisible mode, you're not supposed to know about this
 	if (this.user.access < 0) {
 		return;
@@ -110,7 +110,7 @@ webchat.addClientCommand("/invisible", function() {
 	message.hold = true;
 });
 
-webchat.addClientCommand("/a", function(message) {
+webchat.addClientChatCommand("/a", function(message) {
 	if (message.data === "/a on") {
 		this.setShowA(true);
 	}
@@ -119,7 +119,7 @@ webchat.addClientCommand("/a", function(message) {
 	}
 });
 
-webchat.addClientCommand("/who", function(message) {
+webchat.addClientChatCommand("/who", function(message) {
 	//Who is online?
 	if (getWordCount(message.data) === 1) {
 		//List all the users if they don't specify someone
