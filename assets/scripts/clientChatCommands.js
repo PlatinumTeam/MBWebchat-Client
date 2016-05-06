@@ -79,7 +79,7 @@ webchat.addClientChatCommand("/help", function(message) {
 	message.hold = true;
 });
 
-webchat.addClientChatCommand("/away", function() {
+webchat.addClientChatCommand("/away", function(message) {
 	//Away status
 	if (this.user.away) {
 		//Webchat
@@ -93,7 +93,7 @@ webchat.addClientChatCommand("/away", function() {
 	message.hold = true;
 });
 
-webchat.addClientChatCommand("/invisible", function() {
+webchat.addClientChatCommand("/invisible", function(message) {
 	//Invisible mode, you're not supposed to know about this
 	if (this.user.access < 0) {
 		return;
