@@ -38,7 +38,8 @@ function Webchat() {
 	this.disconnecting = false;
 	this.showa = false;
 	this.onlya = false;
-	this.lastmessage = null;
+	this.newmessages = 0;
+	this.flashOn = false;
 
 	this.clientCommands = {};
 
@@ -136,9 +137,6 @@ function Webchat() {
 	this.atoggle.click(function(e) {
 		webchat.setOnlyA(!webchat.onlya);
 	});
-
-	//Setup the title flashing
-	setInterval(this.flashTitle, 1000);
 }
 
 Webchat.prototype.addClientCommand = function(name, func) {
@@ -221,24 +219,27 @@ Webchat.prototype.setWindowTitle = function(text, mobiletext) {
 	}
 };
 Webchat.prototype.flashTitle = function() {
-	if (this.lastmessage) {
-		/*
-		{
-			user: "",
-			message: "",
-			shown: false;
-		}
-		*/
-		//Flash the title between the normal one and the last message
-		if (this.lastmessage.shown) {
-			this.setWindowTitle(this.lastmessage.user + " says: \"" + this.lastmessage.message + "\"", "Message from " + this.lastmessage.user);
-		} else {
-			this.setWindowTitle("MarbleBlast.com Webchat", "Webchat");
-		}
-		//Flash the message
-		this.lastmessage.shown = !this.lastmessage.shown;
+	if (document.hasFocus()) {
+		this.flashOn = false;
+		this.newmessages = 0;
 	} else {
-		// this.setWindowTitle("MarbleBlast.com Webchat", "Webchat");
+		this.flashOn = !this.flashOn;
+	}
+
+	var newTitle = (this.newmessages > 0 ? "(" + this.newmessages + " new) " : "");
+
+	changeFavicon(this.flashOn ? "favicon-notif.ico" : "favicon.ico");
+	this.setWindowTitle(newTitle + "MarbleBlast.com Webchat", newTitle + "Webchat");
+	if (!document.hasFocus()) {
+		if (typeof(this.flashTimer) !== "undefined")
+			return;
+
+		this.flashTimer = setTimeout(function(){
+			webchat.flashTimer = undefined;
+			webchat.flashTitle();
+		}, 3000);
+	} else {
+		this.flashTimer = undefined;
 	}
 };
 Webchat.prototype.showLogin = function() {
@@ -758,6 +759,9 @@ Webchat.prototype.interpretChat = function(text) {
 	if (destination !== "" && destination.toLowerCase() !== this.user.username.toLowerCase()) {
 		return;
 	}
+
+	this.newmessages ++;
+	this.flashTitle();
 
 	//They sent a chat command
 	if (message.substring(0, 1) === "/") {
