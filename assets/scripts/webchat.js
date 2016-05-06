@@ -811,16 +811,16 @@ Webchat.prototype.interpretUser = function(text) {
 			var prefix   = decodeName(getWord(params, 6));
 			var suffix   = decodeName(getWord(params, 7));
 
-			this.userlist.addUser({
-				username: username,
-				access: access,
-				location: location,
-				display: display,
-				color: "#" + color,
-				flair: flair,
-				prefix: prefix,
-				suffix: suffix
-			});
+			this.userlist.addUser(new User(
+				username,
+				display,
+				access,
+				location,
+				flair,
+				prefix,
+				suffix,
+				"#" + color
+			));
 		}
 		break;
 	case "START":

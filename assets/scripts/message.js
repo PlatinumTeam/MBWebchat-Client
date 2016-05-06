@@ -1,12 +1,8 @@
 function Message(user, display, destination, data, access) {
-	this.user = {
-		username: user    || "",
-		display:  display || "",
-		access:   access  || ""
-	};
+	this.user = new User(user, display, access);
+	
 	this.destination = destination || "";
 	this.data        = data        || "";
-
 
 	this.sent = false;
 	this.hold = false;
