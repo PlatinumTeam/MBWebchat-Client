@@ -207,6 +207,7 @@ if (array_key_exists("getkey", $_POST)) {
 <script type="text/javascript" src="assets/scripts/userlist.js"></script>
 <script type="text/javascript" src="assets/scripts/settings.js"></script>
 <script type="text/javascript" src="assets/scripts/webchat.js"></script>
+<script type="text/javascript" src="assets/scripts/serverCommands.js"></script>
 <script type="text/javascript" src="assets/scripts/clientChatCommands.js"></script>
 <script type="text/javascript" src="assets/scripts/serverChatCommands.js"></script>
 <!-- Dynamically generated scripts at the end -->
