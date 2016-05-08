@@ -963,6 +963,17 @@ Webchat.prototype.addChat = function(text) {
     }
 };
 Webchat.prototype.formatChat = function(text, access) {
+	//Convert links to tags
+	text = text.split(" ").map(function(word) {
+		if (word.substr(0, 7) === "http://" || word.substr(0, 8) === "https://") {
+			var link = word;
+			link = link.replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<");
+			link = link.replace(/\\/g, "\\\\").replace(/\'/g, "\'").replace(/\"/g, "\"");
+			word = "<a href='" + link + "' target='_blank'>" + word + "</a>";
+		}
+		return word;
+	}).join(" ");
+
 	//Greentext, I'm so sorry
 	if ((text.substring(0, 1) === ">") || text.substring(0, 4) === "&gt;") {
 		text = this.colorMessage(text, "greentext");

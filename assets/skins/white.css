@@ -57,6 +57,18 @@ input[type="text"]:focus, input[type="password"]:focus {
 input.form[disabled="disabled"] {
 	background-color: #ccc;
 }
+a {
+	color: #36f;
+}
+a:visited {
+	color: #60f;
+}
+a:active {
+	color: #f03;
+}
+a:focus {
+	color: #f03;
+}
 .button {
 	color: #000;
 	background-color: #ddd;
