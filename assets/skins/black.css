@@ -251,7 +251,7 @@ a:focus {
 .color-access-2     { color: #ff6666; }
 .color-access-3     { color: #ffffff; }
 .color-user {
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .titlebar-gradient-1 { color: #444444; }
