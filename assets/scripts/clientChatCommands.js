@@ -110,15 +110,6 @@ webchat.addClientChatCommand("/invisible", function(message) {
 	message.hold = true;
 });
 
-webchat.addClientChatCommand("/a", function(message) {
-	if (message.data === "/a on") {
-		this.setShowA(true);
-	}
-	if (message.data === "/a off") {
-		this.setShowA(false);
-	}
-});
-
 webchat.addClientChatCommand("/who", function(message) {
 	//Who is online?
 	if (getWordCount(message.data) === 1) {

@@ -21,17 +21,3 @@ webchat.addServerChatCommand("/slap", function(message) {
 
 	this.hold = true;
 });
-
-webchat.addServerChatCommand("/a", function(message) {
-	// /a stuff
-
-	//Format their username
-	var formatted = message.user.getFormattedDisplay(true, false, true, true);
-
-	//Strip off "/a "
-	var data = message.data.substring(3);
-
-	this.addChat(this.colorMessage("[Adult] ", "a") + formatted + this.formatChat(data, message.user.access));
-	
-	this.hold = true;
-});

@@ -88,7 +88,6 @@ if (array_key_exists("getkey", $_POST)) {
 	<div id="messageframe">
 		<div id="messageoutline">
 			<div id="messagebox">
-				<input type="hidden" id="atoggle" class="button" value="/a">
 				<input type="text" id="textbox" value="">
 				<button id="settingsbutton" class="button"><i class="fa fa-cog"></i></button>
 			</div>

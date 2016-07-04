@@ -36,8 +36,6 @@ function Webchat() {
 	this.relogin = false;
 	this.relogging = false;
 	this.disconnecting = false;
-	this.showa = false;
-	this.onlya = false;
 	this.newmessages = 0;
 	this.flashOn = false;
 
@@ -64,7 +62,6 @@ function Webchat() {
 	this.titlestatus    = $("#titlestatus");
 	this.tosaccept      = $("#tosaccept");
 	this.tosdecline     = $("#tosdecline");
-	this.atoggle        = $("#atoggle");
 	this.settingsbutton = $("#settingsbutton");
 
 	this.setStatus("Disconnected");
@@ -135,9 +132,6 @@ function Webchat() {
 	}
 	$(document).unload(function(e) {
 		webchat.logout();
-	});
-	this.atoggle.click(function(e) {
-		webchat.setOnlyA(!webchat.onlya);
 	});
 }
 
@@ -369,36 +363,6 @@ Webchat.prototype.guestLogin = function() {
 	this.connect();
 	this.setGuestMode(true);
 };
-Webchat.prototype.setOnlyA = function(only) {
-	this.onlya = only;
-
-	if (this.onlya) {
-		this.atoggle.addClass("active");
-		this.atoggle.addClass("button-danger");
-		this.messageframe.addClass("onlya");
-		this.settingsbutton.addClass("button-danger");
-		this.settingsbutton.removeClass("button");
-	} else {
-		this.atoggle.removeClass("active");
-		this.atoggle.removeClass("button-danger");
-		this.messageframe.removeClass("onlya");
-		this.settingsbutton.removeClass("button-danger");
-		this.settingsbutton.addClass("button");
-	}
-	this.textbox.focus();
-};
-Webchat.prototype.setShowA = function(show) {
-	this.showa = show;
-
-	if (this.showa) {
-		this.messagebox.addClass("showa");
-		this.atoggle.attr("type", "submit");
-	} else {
-		this.messagebox.removeClass("showa");
-		this.atoggle.attr("type", "hidden");
-	}
-	this.textbox.focus();
-};
 Webchat.prototype.detectMobile = function() {
 	this.mobile = ($("#mobiledetect").css("display") === "none");
 	if (this.mobile) {
@@ -586,11 +550,7 @@ Webchat.prototype.sendChat = function(data, destination) {
 
 	if (message.hold)
 		return;
-
-	if (this.onlya) {
-		message.data = "/a " + message.data;
-	}
-
+	
 	if (this.grouplist.length) {
 		var group = this.grouplist[0];
 		this.send("CHAT " + destination + " " + group + " " + data);

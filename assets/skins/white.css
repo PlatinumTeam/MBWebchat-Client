@@ -7,12 +7,6 @@ body {
 		background-color: #fff;
 		border: 1px solid #ccc;
 	}
-	#messageframe.onlya #messagebox {
-		background-color: #f33;
-	}
-	#messageframe.onlya #textbox {
-		background-color: #f99;
-	}
 	.dialogmodal {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
