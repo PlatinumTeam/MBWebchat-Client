@@ -287,6 +287,8 @@ webchat.addServerCommand("LOGGED", function(line, data) {
 		this.relogging = false;
 	}
 	this.setStatus("Connected");
+
+	this.onLogin();
 });
 
 //Unused

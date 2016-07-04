@@ -471,6 +471,7 @@ Webchat.prototype.connect = function(server) {
 	};
 	this.socket.onclose = function(e) {
 		webchat.setStatus("Disconnected");
+		this.onLogout();
 
 		if (!webchat.disconnecting) {
             webchat.tryRelogin();
@@ -550,7 +551,7 @@ Webchat.prototype.sendChat = function(data, destination) {
 
 	if (message.hold)
 		return;
-	
+
 	if (this.grouplist.length) {
 		var group = this.grouplist[0];
 		this.send("CHAT " + destination + " " + group + " " + data);
@@ -685,6 +686,14 @@ Webchat.prototype.formatChat = function(text, access) {
 };
 Webchat.prototype.error = function(data) {
 	this.setLoginStatus("Error: " + data);
+};
+Webchat.prototype.onLogin = function() {
+	this.pingTimer = setInterval(function() {
+		webchat.send("PING " + new Date().getUTCMilliseconds());
+	}, 30000);
+};
+Webchat.prototype.onLogout = function() {
+	clearInterval(this.pingTimer);
 };
 Webchat.prototype.formatAccess = function(access, color) {
 	var title = "Member";
